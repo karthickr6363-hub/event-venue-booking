@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venues - Find Your Perfect Event Space</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .filter-sidebar {
+            background: var(--black-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .filter-group {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--black-lighter);
+        }
+        
+        .filter-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .filter-title {
+            color: var(--royal-gold);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .venue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .venue-card {
+            background: var(--black-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .venue-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .venue-image-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .venue-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .venue-card:hover .venue-image {
+            transform: scale(1.1);
+        }
+        
+        .venue-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .venue-rating {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(11, 15, 20, 0.9);
+            color: var(--pearl-white);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .venue-content {
+            padding: 1.5rem;
+        }
+        
+        .venue-title {
+            color: var(--pearl-white);
+            font-family: var(--font-primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .venue-location {
+            color: var(--pearl-white);
+            opacity: 0.7;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .venue-price {
+            color: var(--royal-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .venue-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .venue-feature {
+            background: var(--black-lighter);
+            color: var(--pearl-white);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+        }
+        
+        .venue-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .view-btn {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            color: var(--pearl-white);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn.active,
+        .view-btn:hover {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            border-color: var(--royal-gold);
+        }
+        
+        .map-container {
+            background: var(--black-light);
+            border-radius: var(--radius-lg);
+            height: 600px;
+            display: none;
+        }
+        
+        .map-container.active {
+            display: block;
+        }
+        
+        .price-range-slider {
+            margin: 1rem 0;
+        }
+        
+        .checkbox-custom {
+            accent-color: var(--royal-gold);
+        }
+        
+        .results-count {
+            color: var(--pearl-white);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .sort-dropdown {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            color: var(--pearl-white);
+            border-radius: var(--radius-md);
+            padding: 0.5rem 1rem;
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, var(--black-light) 25%, var(--black-lighter) 50%, var(--black-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-lg);
+            height: 400px;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-crown me-2"></i>Luxury Venues
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home2.html">Home 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="packages.html">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section pt-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold mb-3">Find Your Perfect Venue</h1>
+                <p class="lead">Discover exclusive spaces for unforgettable events</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section pb-5">
+        <div class="container">
+            <div class="row">
+                <!-- Filters Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="filter-sidebar">
+                        <h5 class="filter-title">
+                            <i class="fas fa-filter me-2"></i>Filters
+                        </h5>
+                        
+                        <!-- Location Filter -->
+                        <div class="filter-group">
+                            <label class="form-label">Location</label>
+                            <select class="form-control" id="locationFilter">
+                                <option value="">All Locations</option>
+                                <option value="new-york">New York</option>
+                                <option value="los-angeles">Los Angeles</option>
+                                <option value="chicago">Chicago</option>
+                                <option value="miami">Miami</option>
+                                <option value="las-vegas">Las Vegas</option>
+                                <option value="san-francisco">San Francisco</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Event Type Filter -->
+                        <div class="filter-group">
+                            <label class="form-label">Event Type</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="wedding" id="weddingCheck">
+                                <label class="form-check-label" for="weddingCheck">
+                                    Wedding
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="corporate" id="corporateCheck">
+                                <label class="form-check-label" for="corporateCheck">
+                                    Corporate
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="party" id="partyCheck">
+                                <label class="form-check-label" for="partyCheck">
+                                    Party
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="conference" id="conferenceCheck">
+                                <label class="form-check-label" for="conferenceCheck">
+                                    Conference
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Capacity Filter -->
+                        <div class="filter-group">
+                            <label class="form-label">Guest Capacity</label>
+                            <select class="form-control" id="capacityFilter">
+                                <option value="">Any Size</option>
+                                <option value="50">Up to 50 guests</option>
+                                <option value="100">Up to 100 guests</option>
+                                <option value="200">Up to 200 guests</option>
+                                <option value="300">Up to 300 guests</option>
+                                <option value="500">Up to 500 guests</option>
+                                <option value="1000">500+ guests</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Price Range Filter -->
+                        <div class="filter-group">
+                            <label class="form-label">Price Range</label>
+                            <div class="price-range-slider">
+                                <input type="range" class="form-range" min="1000" max="50000" value="25000" id="priceRange">
+                                <div class="d-flex justify-content-between">
+                                    <small>$1,000</small>
+                                    <small id="priceValue">$25,000</small>
+                                    <small>$50,000</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Amenities Filter -->
+                        <div class="filter-group">
+                            <label class="form-label">Amenities</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="parking" id="parkingCheck">
+                                <label class="form-check-label" for="parkingCheck">
+                                    Parking
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="catering" id="cateringCheck">
+                                <label class="form-check-label" for="cateringCheck">
+                                    Catering
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="av" id="avCheck">
+                                <label class="form-check-label" for="avCheck">
+                                    AV Equipment
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="outdoor" id="outdoorCheck">
+                                <label class="form-check-label" for="outdoorCheck">
+                                    Outdoor Space
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating Filter -->
+                        <div class="filter-group">
+                            <label class="form-label">Minimum Rating</label>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(4)">4+ ★</button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(3)">3+ ★</button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(2)">2+ ★</button>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary w-100" onclick="applyFilters()">
+                            <i class="fas fa-search me-2"></i>Apply Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Venue Listings -->
+                <div class="col-lg-9">
+                    <!-- View Toggle and Sort -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="toggleView('grid')">
+                                <i class="fas fa-th"></i> Grid
+                            </button>
+                            <button class="view-btn" onclick="toggleView('map')">
+                                <i class="fas fa-map"></i> Map
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="results-count">Showing <span id="resultsCount">12</span> venues</span>
+                            <select class="sort-dropdown" id="sortDropdown">
+                                <option value="featured">Featured</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="capacity">Largest Capacity</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Grid View -->
+                    <div id="gridView" class="venue-grid">
+                        <!-- Venue Card 1 -->
+                        <div class="venue-card" data-location="new-york" data-event-types="wedding,corporate" data-capacity="300" data-price="15000" data-rating="4.8">
+                            <div class="venue-image-container">
+                                <img src="https://picsum.photos/seed/venue1/400/250.jpg" alt="Grand Ballroom" class="venue-image">
+                                <span class="venue-badge">Featured</span>
+                                <div class="venue-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <button class="wishlist-btn" data-venue-id="1">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="venue-content">
+                                <h5 class="venue-title">Grand Ballroom Manhattan</h5>
+                                <p class="venue-location">
+                                    <i class="fas fa-map-marker-alt me-1"></i>New York, NY
+                                </p>
+                                <div class="venue-price">$15,000/day</div>
+                                <div class="venue-features">
+                                    <span class="venue-feature">300 guests</span>
+                                    <span class="venue-feature">Parking</span>
+                                    <span class="venue-feature">Catering</span>
+                                    <span class="venue-feature">AV Equipment</span>
+                                </div>
+                                <div class="venue-actions">
+                                    <a href="venue-detail.html?id=1" class="btn btn-primary flex-fill">View Details</a>
+                                    <button class="btn btn-outline-primary" onclick="quickBook(1)">Quick Book</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Venue Card 2 -->
+                        <div class="venue-card" data-location="los-angeles" data-event-types="party,conference" data-capacity="200" data-price="12000" data-rating="4.6">
+                            <div class="venue-image-container">
+                                <img src="https://picsum.photos/seed/venue2/400/250.jpg" alt="Rooftop Garden" class="venue-image">
+                                <div class="venue-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.6</span>
+                                </div>
+                                <button class="wishlist-btn" data-venue-id="2">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="venue-content">
+                                <h5 class="venue-title">Rooftop Garden LA</h5>
+                                <p class="venue-location">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Los Angeles, CA
+                                </p>
+                                <div class="venue-price">$12,000/day</div>
+                                <div class="venue-features">
+                                    <span class="venue-feature">200 guests</span>
+                                    <span class="venue-feature">Outdoor</span>
+                                    <span class="venue-feature">City View</span>
+                                    <span class="venue-feature">Bar Service</span>
+                                </div>
+                                <div class="venue-actions">
+                                    <a href="venue-detail.html?id=2" class="btn btn-primary flex-fill">View Details</a>
+                                    <button class="btn btn-outline-primary" onclick="quickBook(2)">Quick Book</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Venue Card 3 -->
+                        <div class="venue-card" data-location="chicago" data-event-types="wedding,party" data-capacity="250" data-price="10000" data-rating="4.7">
+                            <div class="venue-image-container">
+                                <img src="https://picsum.photos/seed/venue3/400/250.jpg" alt="Historic Mansion" class="venue-image">
+                                <div class="venue-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.7</span>
+                                </div>
+                                <button class="wishlist-btn" data-venue-id="3">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="venue-content">
+                                <h5 class="venue-title">Historic Mansion Chicago</h5>
+                                <p class="venue-location">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Chicago, IL
+                                </p>
+                                <div class="venue-price">$10,000/day</div>
+                                <div class="venue-features">
+                                    <span class="venue-feature">250 guests</span>
+                                    <span class="venue-feature">Historic</span>
+                                    <span class="venue-feature">Garden</span>
+                                    <span class="venue-feature">Valet</span>
+                                </div>
+                                <div class="venue-actions">
+                                    <a href="venue-detail.html?id=3" class="btn btn-primary flex-fill">View Details</a>
+                                    <button class="btn btn-outline-primary" onclick="quickBook(3)">Quick Book</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Venue Card 4 -->
+                        <div class="venue-card" data-location="miami" data-event-types="party,wedding" data-capacity="400" data-price="18000" data-rating="4.9">
+                            <div class="venue-image-container">
+                                <img src="https://picsum.photos/seed/venue4/400/250.jpg" alt="Beach Resort" class="venue-image">
+                                <span class="venue-badge">Premium</span>
+                                <div class="venue-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.9</span>
+                                </div>
+                                <button class="wishlist-btn" data-venue-id="4">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="venue-content">
+                                <h5 class="venue-title">Oceanfront Resort Miami</h5>
+                                <p class="venue-location">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Miami, FL
+                                </p>
+                                <div class="venue-price">$18,000/day</div>
+                                <div class="venue-features">
+                                    <span class="venue-feature">400 guests</span>
+                                    <span class="venue-feature">Beach Access</span>
+                                    <span class="venue-feature">Resort</span>
+                                    <span class="venue-feature">Spa</span>
+                                </div>
+                                <div class="venue-actions">
+                                    <a href="venue-detail.html?id=4" class="btn btn-primary flex-fill">View Details</a>
+                                    <button class="btn btn-outline-primary" onclick="quickBook(4)">Quick Book</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Venue Card 5 -->
+                        <div class="venue-card" data-location="las-vegas" data-event-types="corporate,conference" data-capacity="500" data-price="25000" data-rating="4.5">
+                            <div class="venue-image-container">
+                                <img src="https://picsum.photos/seed/venue5/400/250.jpg" alt="Casino Ballroom" class="venue-image">
+                                <div class="venue-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <button class="wishlist-btn" data-venue-id="5">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="venue-content">
+                                <h5 class="venue-title">Luxury Casino Ballroom</h5>
+                                <p class="venue-location">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Las Vegas, NV
+                                </p>
+                                <div class="venue-price">$25,000/day</div>
+                                <div class="venue-features">
+                                    <span class="venue-feature">500 guests</span>
+                                    <span class="venue-feature">Entertainment</span>
+                                    <span class="venue-feature">Gaming</span>
+                                    <span class="venue-feature">Shows</span>
+                                </div>
+                                <div class="venue-actions">
+                                    <a href="venue-detail.html?id=5" class="btn btn-primary flex-fill">View Details</a>
+                                    <button class="btn btn-outline-primary" onclick="quickBook(5)">Quick Book</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Venue Card 6 -->
+                        <div class="venue-card" data-location="san-francisco" data-event-types="wedding,corporate" data-capacity="150" data-price="8000" data-rating="4.4">
+                            <div class="venue-image-container">
+                                <img src="https://picsum.photos/seed/venue6/400/250.jpg" alt="Art Gallery" class="venue-image">
+                                <div class="venue-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.4</span>
+                                </div>
+                                <button class="wishlist-btn" data-venue-id="6">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="venue-content">
+                                <h5 class="venue-title">Modern Art Gallery SF</h5>
+                                <p class="venue-location">
+                                    <i class="fas fa-map-marker-alt me-1"></i>San Francisco, CA
+                                </p>
+                                <div class="venue-price">$8,000/day</div>
+                                <div class="venue-features">
+                                    <span class="venue-feature">150 guests</span>
+                                    <span class="venue-feature">Art Gallery</span>
+                                    <span class="venue-feature">Modern</span>
+                                    <span class="venue-feature">Catering</span>
+                                </div>
+                                <div class="venue-actions">
+                                    <a href="venue-detail.html?id=6" class="btn btn-primary flex-fill">View Details</a>
+                                    <button class="btn btn-outline-primary" onclick="quickBook(6)">Quick Book</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map View -->
+                    <div id="mapView" class="map-container">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <div class="text-center">
+                                <i class="fas fa-map-marked-alt fa-4x text-gold mb-3"></i>
+                                <h4>Interactive Map View</h4>
+                                <p>Browse venues on an interactive map</p>
+                                <button class="btn btn-primary">Enable Map View</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link bg-black text-white border-secondary" href="#">Previous</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link bg-gold text-black border-gold" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link bg-black text-white border-secondary" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link bg-black text-white border-secondary" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link bg-black text-white border-secondary" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Luxury Venue Booking. All rights reserved.</p>
+            <div class="mt-3">
+                <a href="#" class="text-gold me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-gold"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Price range slider
+        const priceRange = document.getElementById('priceRange');
+        const priceValue = document.getElementById('priceValue');
+        
+        priceRange.addEventListener('input', function() {
+            priceValue.textContent = `$${parseInt(this.value).toLocaleString()}`;
+        });
+        
+        // Toggle view
+        function toggleView(view) {
+            const gridView = document.getElementById('gridView');
+            const mapView = document.getElementById('mapView');
+            const viewBtns = document.querySelectorAll('.view-btn');
+            
+            viewBtns.forEach(btn => btn.classList.remove('active'));
+            
+            if (view === 'grid') {
+                gridView.style.display = 'grid';
+                mapView.classList.remove('active');
+                viewBtns[0].classList.add('active');
+            } else {
+                gridView.style.display = 'none';
+                mapView.classList.add('active');
+                viewBtns[1].classList.add('active');
+            }
+        }
+        
+        // Apply filters
+        function applyFilters() {
+            const venueCards = document.querySelectorAll('.venue-card');
+            const filters = {
+                location: document.getElementById('locationFilter').value,
+                capacity: document.getElementById('capacityFilter').value,
+                priceRange: document.getElementById('priceRange').value
+            };
+            
+            // Get checked event types
+            const eventTypes = [];
+            document.querySelectorAll('.checkbox-custom:checked').forEach(checkbox => {
+                if (checkbox.id.includes('Check') && !checkbox.id.includes('parking') && !checkbox.id.includes('catering') && !checkbox.id.includes('av') && !checkbox.id.includes('outdoor')) {
+                    eventTypes.push(checkbox.value);
+                }
+            });
+            
+            let visibleCount = 0;
+            venueCards.forEach(card => {
+                let show = true;
+                
+                // Location filter
+                if (filters.location && card.dataset.location !== filters.location) {
+                    show = false;
+                }
+                
+                // Event type filter
+                if (eventTypes.length > 0) {
+                    const cardEventTypes = card.dataset.eventTypes.split(',');
+                    const hasMatchingType = eventTypes.some(type => cardEventTypes.includes(type));
+                    if (!hasMatchingType) {
+                        show = false;
+                    }
+                }
+                
+                // Capacity filter
+                if (filters.capacity && parseInt(card.dataset.capacity) > parseInt(filters.capacity)) {
+                    show = false;
+                }
+                
+                // Price filter
+                if (parseInt(card.dataset.price) > parseInt(filters.priceRange)) {
+                    show = false;
+                }
+                
+                card.style.display = show ? 'block' : 'none';
+                if (show) visibleCount++;
+            });
+            
+            // Update results count
+            document.getElementById('resultsCount').textContent = visibleCount;
+            
+            // Show notification
+            showNotification(`Found ${visibleCount} venues matching your criteria`, 'success');
+        }
+        
+        // Set rating filter
+        function setRatingFilter(minRating) {
+            const venueCards = document.querySelectorAll('.venue-card');
+            let visibleCount = 0;
+            
+            venueCards.forEach(card => {
+                const rating = parseFloat(card.dataset.rating);
+                if (rating >= minRating) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('resultsCount').textContent = visibleCount;
+        }
+        
+        // Quick book function
+        function quickBook(venueId) {
+            showNotification(`Quick booking initiated for venue ${venueId}`, 'success');
+            // Redirect to booking page or open modal
+            setTimeout(() => {
+                window.location.href = `venue-detail.html?id=${venueId}#booking`;
+            }, 1000);
+        }
+        
+        // Sort functionality
+        document.getElementById('sortDropdown').addEventListener('change', function() {
+            const sortBy = this.value;
+            const venueGrid = document.getElementById('gridView');
+            const venueCards = Array.from(venueGrid.querySelectorAll('.venue-card'));
+            
+            venueCards.sort((a, b) => {
+                switch(sortBy) {
+                    case 'price-low':
+                        return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+                    case 'price-high':
+                        return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+                    case 'rating':
+                        return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                    case 'capacity':
+                        return parseInt(b.dataset.capacity) - parseInt(a.dataset.capacity);
+                    default:
+                        return 0;
+                }
+            });
+            
+            // Re-append sorted cards
+            venueCards.forEach(card => venueGrid.appendChild(card));
+        });
+        
+        // Initialize filters on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFilters();
+            initializeWishlist();
+        });
+    </script>
+</body>
+</html>

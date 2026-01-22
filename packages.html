@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages - Event Venue Packages & Deals</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .package-hero {
+            background: linear-gradient(135deg, var(--midnight-black) 0%, var(--black-light) 100%);
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://picsum.photos/seed/packages/1920/600.jpg') center/cover;
+            opacity: 0.15;
+        }
+        
+        .package-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .package-card {
+            background: var(--black-light);
+            border: 2px solid transparent;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--royal-gold);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
+        }
+        
+        .package-card.featured {
+            border-color: var(--royal-gold);
+            transform: scale(1.05);
+        }
+        
+        .package-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            padding: 0.25rem 3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .package-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--royal-gold) 0%, var(--gold-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--midnight-black);
+        }
+        
+        .package-title {
+            color: var(--pearl-white);
+            font-family: var(--font-primary);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .package-price {
+            font-size: 3rem;
+            color: var(--royal-gold);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .package-price small {
+            font-size: 1rem;
+            color: var(--pearl-white);
+            opacity: 0.7;
+        }
+        
+        .package-features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        
+        .package-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--black-lighter);
+            color: var(--pearl-white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .package-features i {
+            color: var(--royal-gold);
+            margin-right: 0.75rem;
+            width: 20px;
+        }
+        
+        .package-includes {
+            background: var(--black-lighter);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .package-includes h6 {
+            color: var(--royal-gold);
+            margin-bottom: 0.75rem;
+        }
+        
+        .include-item {
+            display: inline-block;
+            background: var(--black-light);
+            color: var(--pearl-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            margin: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .comparison-table {
+            background: var(--black-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            font-weight: 700;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--black-lighter);
+            color: var(--pearl-white);
+            vertical-align: middle;
+        }
+        
+        .comparison-table .check-icon {
+            color: var(--royal-gold);
+            font-size: 1.25rem;
+            text-align: center;
+        }
+        
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .filter-pill {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            color: var(--pearl-white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            border-color: var(--royal-gold);
+        }
+        
+        .deal-banner {
+            background: linear-gradient(135deg, var(--royal-gold) 0%, var(--gold-light) 100%);
+            color: var(--midnight-black);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .deal-banner h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .countdown-item {
+            background: rgba(11, 15, 20, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            min-width: 60px;
+        }
+        
+        .countdown-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .countdown-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        
+        @media (max-width: 768px) {
+            .package-card.featured {
+                transform: scale(1);
+            }
+            
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+            
+            .countdown {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 50px;
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-crown me-2"></i>Luxury Venues
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home2.html">Home 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="packages.html">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="package-hero">
+        <div class="container">
+            <div class="package-hero-content text-center">
+                <h1 class="display-3 fw-bold mb-4">Event Packages & Deals</h1>
+                <p class="lead mb-4">All-inclusive packages designed for memorable events</p>
+                <div class="filter-pills">
+                    <button class="filter-pill active" onclick="filterPackages('all')">All Packages</button>
+                    <button class="filter-pill" onclick="filterPackages('wedding')">Wedding</button>
+                    <button class="filter-pill" onclick="filterPackages('corporate')">Corporate</button>
+                    <button class="filter-pill" onclick="filterPackages('party')">Party</button>
+                    <button class="filter-pill" onclick="filterPackages('budget')">Budget Friendly</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Limited Time Deal -->
+    <section class="section">
+        <div class="container">
+            <div class="deal-banner">
+                <h3><i class="fas fa-fire me-2"></i>Limited Time Offer</h3>
+                <p class="mb-0">Book any package this month and get 15% off + complimentary photography!</p>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">05</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">12</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">34</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">56</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Packages -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Wedding Packages</h2>
+            <div class="row g-4 align-items-stretch">
+                <!-- Silver Package -->
+                <div class="col-lg-4 package-item" data-category="wedding">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-ring"></i>
+                        </div>
+                        <h3 class="package-title">Silver Wedding</h3>
+                        <div class="package-price">
+                            $8,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Perfect for intimate celebrations</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 6 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 100 guests</li>
+                            <li><i class="fas fa-check"></i>Basic decoration</li>
+                            <li><i class="fas fa-check"></i>Sound system</li>
+                            <li><i class="fas fa-check"></i>Event coordinator</li>
+                            <li><i class="fas fa-check"></i>Basic lighting</li>
+                        </ul>
+                        
+                        <div class="package-includes">
+                            <h6>Also Includes:</h6>
+                            <span class="include-item">Setup</span>
+                            <span class="include-item">Cleanup</span>
+                            <span class="include-item">Parking</span>
+                        </div>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+
+                <!-- Gold Package (Featured) -->
+                <div class="col-lg-4 package-item" data-category="wedding">
+                    <div class="package-card featured">
+                        <div class="package-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="package-title">Gold Wedding</h3>
+                        <div class="package-price">
+                            $15,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Our most popular choice</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 8 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 200 guests</li>
+                            <li><i class="fas fa-check"></i>Premium decoration</li>
+                            <li><i class="fas fa-check"></i>Professional sound & lighting</li>
+                            <li><i class="fas fa-check"></i>Dedicated event planner</li>
+                            <li><i class="fas fa-check"></i>Photo booth</li>
+                            <li><i class="fas fa-check"></i>Red carpet service</li>
+                        </ul>
+                        
+                        <div class="package-includes">
+                            <h6>Also Includes:</h6>
+                            <span class="include-item">Catering</span>
+                            <span class="include-item">Bar Service</span>
+                            <span class="include-item">Photography</span>
+                            <span class="include-item">Valet Parking</span>
+                        </div>
+                        
+                        <button class="btn btn-primary w-100">Select Package</button>
+                    </div>
+                </div>
+
+                <!-- Platinum Package -->
+                <div class="col-lg-4 package-item" data-category="wedding">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3 class="package-title">Platinum Wedding</h3>
+                        <div class="package-price">
+                            $25,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Ultimate luxury experience</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 12 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 300 guests</li>
+                            <li><i class="fas fa-check"></i>Luxury floral decoration</li>
+                            <li><i class="fas fa-check"></i>Live entertainment setup</li>
+                            <li><i class="fas fa-check"></i>Personal event designer</li>
+                            <li><i class="fas fa-check"></i>VIP lounge</li>
+                            <li><i class="fas fa-check"></i>Fireworks display</li>
+                            <li><i class="fas fa-check"></i>Helicopter arrival</li>
+                        </ul>
+                        
+                        <div class="package-includes">
+                            <h6>Also Includes:</h6>
+                            <span class="include-item">Gourmet Catering</span>
+                            <span class="include-item">Premium Bar</span>
+                            <span class="include-item">Photo & Video</span>
+                            <span class="include-item">Luxury Transport</span>
+                        </div>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corporate Packages -->
+    <section class="section bg-black-light">
+        <div class="container">
+            <h2 class="section-title">Corporate Packages</h2>
+            <div class="row g-4 align-items-stretch">
+                <!-- Business Package -->
+                <div class="col-lg-6 package-item" data-category="corporate">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="package-title">Business Professional</h3>
+                        <div class="package-price">
+                            $5,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Perfect for corporate meetings</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 4 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 50 guests</li>
+                            <li><i class="fas fa-check"></i>Projector & screen</li>
+                            <li><i class="fas fa-check"></i>High-speed WiFi</li>
+                            <li><i class="fas fa-check"></i>Microphone system</li>
+                            <li><i class="fas fa-check"></i>Coffee & tea service</li>
+                        </ul>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+
+                <!-- Executive Package -->
+                <div class="col-lg-6 package-item" data-category="corporate">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="package-title">Executive Gala</h3>
+                        <div class="package-price">
+                            $12,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">For prestigious corporate events</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 6 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 200 guests</li>
+                            <li><i class="fas fa-check"></i>Professional AV setup</li>
+                            <li><i class="fas fa-check"></i>Stage & lighting</li>
+                            <li><i class="fas fa-check"></i>Registration desk</li>
+                            <li><i class="fas fa-check"></i>Full catering service</li>
+                            <li><i class="fas fa-check"></i>Branded materials</li>
+                        </ul>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Party Packages -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Party Packages</h2>
+            <div class="row g-4 align-items-stretch">
+                <!-- Birthday Package -->
+                <div class="col-lg-4 package-item" data-category="party budget">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <h3 class="package-title">Birthday Bash</h3>
+                        <div class="package-price">
+                            $3,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Fun birthday celebrations</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 4 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 50 guests</li>
+                            <li><i class="fas fa-check"></i>Party decoration</li>
+                            <li><i class="fas fa-check"></i>Music system</li>
+                            <li><i class="fas fa-check"></i>Cake service</li>
+                        </ul>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+
+                <!-- Anniversary Package -->
+                <div class="col-lg-4 package-item" data-category="party">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="package-title">Anniversary Special</h3>
+                        <div class="package-price">
+                            $6,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Romantic celebration</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 5 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 80 guests</li>
+                            <li><i class="fas fa-check"></i>Romantic decoration</li>
+                            <li><i class="fas fa-check"></i>Live music setup</li>
+                            <li><i class="fas fa-check"></i>Champagne toast</li>
+                            <li><i class="fas fa-check"></i>Photography session</li>
+                        </ul>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+
+                <!-- Mega Party Package -->
+                <div class="col-lg-4 package-item" data-category="party">
+                    <div class="package-card">
+                        <div class="package-icon">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <h3 class="package-title">Mega Party</h3>
+                        <div class="package-price">
+                            $10,000
+                            <small>/package</small>
+                        </div>
+                        <p class="text-center text-muted">Ultimate party experience</p>
+                        
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i>Venue for 8 hours</li>
+                            <li><i class="fas fa-check"></i>Up to 150 guests</li>
+                            <li><i class="fas fa-check"></i>Themed decoration</li>
+                            <li><i class="fas fa-check"></i>DJ & dance floor</li>
+                            <li><i class="fas fa-check"></i>Full bar service</li>
+                            <li><i class="fas fa-check"></i>Photo booth</li>
+                            <li><i class="fas fa-check"></i>Party favors</li>
+                        </ul>
+                        
+                        <button class="btn btn-outline-primary w-100">Select Package</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Package Comparison -->
+    <section class="section bg-black-light">
+        <div class="container">
+            <h2 class="section-title">Package Comparison</h2>
+            <div class="table-responsive">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Silver</th>
+                            <th>Gold</th>
+                            <th>Platinum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Duration</td>
+                            <td>6 hours</td>
+                            <td>8 hours</td>
+                            <td>12 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Guest Capacity</td>
+                            <td>100 guests</td>
+                            <td>200 guests</td>
+                            <td>300 guests</td>
+                        </tr>
+                        <tr>
+                            <td>Decoration</td>
+                            <td>Basic</td>
+                            <td>Premium</td>
+                            <td>Luxury Floral</td>
+                        </tr>
+                        <tr>
+                            <td>Catering</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Photography</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Live Entertainment</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Event Planner</td>
+                            <td>Coordinator</td>
+                            <td>Dedicated Planner</td>
+                            <td>Personal Designer</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>$8,000</td>
+                            <td>$15,000</td>
+                            <td>$25,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="mb-4">Can't find the perfect package?</h2>
+            <p class="lead mb-4">Create your own custom package tailored to your needs</p>
+            <button class="btn btn-primary btn-lg me-3" onclick="showCustomPackageForm()">
+                <i class="fas fa-magic me-2"></i>Create Custom Package
+            </button>
+            <a href="contact.html" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-phone me-2"></i>Contact Sales Team
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Luxury Venue Booking. All rights reserved.</p>
+            <div class="mt-3">
+                <a href="#" class="text-gold me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-gold"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Filter packages
+        function filterPackages(category) {
+            const packages = document.querySelectorAll('.package-item');
+            const pills = document.querySelectorAll('.filter-pill');
+            
+            // Update active pill
+            pills.forEach(pill => pill.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter packages
+            packages.forEach(pkg => {
+                if (category === 'all') {
+                    pkg.style.display = 'block';
+                } else {
+                    const categories = pkg.dataset.category.split(' ');
+                    if (categories.includes(category)) {
+                        pkg.style.display = 'block';
+                    } else {
+                        pkg.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // Countdown timer
+        function updateCountdown() {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 5); // 5 days from now
+            endDate.setHours(23, 59, 59, 999);
+            
+            const now = new Date();
+            const timeLeft = endDate - now;
+            
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+        }
+        
+        // Show custom package form
+        function showCustomPackageForm() {
+            showNotification('Custom package form coming soon! Please contact our sales team.', 'info');
+        }
+        
+        // Package selection
+        document.querySelectorAll('.package-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const packageTitle = this.closest('.package-card').querySelector('.package-title').textContent;
+                const packagePrice = this.closest('.package-card').querySelector('.package-price').textContent.trim();
+                
+                showNotification(`Selected ${packageTitle} - ${packagePrice}`, 'success');
+                
+                // Simulate redirect to booking
+                setTimeout(() => {
+                    window.location.href = `venues.html?package=${encodeURIComponent(packageTitle)}`;
+                }, 1500);
+            });
+        });
+        
+        // Initialize countdown
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Add hover effects to package cards
+        document.querySelectorAll('.package-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('featured')) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                } else {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

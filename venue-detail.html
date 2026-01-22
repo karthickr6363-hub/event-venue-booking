@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Ballroom Manhattan - Luxury Venue Details</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .hero-section {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(11, 15, 20, 0.3), rgba(11, 15, 20, 0.8));
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem 0;
+        }
+        
+        .venue-title-section {
+            color: var(--pearl-white);
+        }
+        
+        .gallery-thumbnail {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            border-color: var(--royal-gold);
+            transform: scale(1.05);
+        }
+        
+        .info-card {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-card h5 {
+            color: var(--royal-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .amenity-item i {
+            color: var(--royal-gold);
+            width: 20px;
+            margin-right: 0.75rem;
+        }
+        
+        .calendar-container {
+            background: var(--black-light);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+        }
+        
+        .calendar-day {
+            background: var(--black-lighter);
+            border: 1px solid transparent;
+            color: var(--pearl-white);
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: var(--radius-sm);
+        }
+        
+        .calendar-day:hover {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+        }
+        
+        .calendar-day.available {
+            border-color: var(--royal-gold);
+        }
+        
+        .calendar-day.booked {
+            background: var(--black-lighter);
+            color: var(--pearl-white);
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.selected {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+        }
+        
+        .pricing-card {
+            background: var(--black-light);
+            border: 2px solid var(--royal-gold);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+        
+        .price-display {
+            font-size: 2.5rem;
+            color: var(--royal-gold);
+            font-weight: 700;
+        }
+        
+        .review-card {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .rating-stars {
+            color: var(--royal-gold);
+        }
+        
+        .booking-sticky {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .image-gallery-main {
+            height: 500px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: var(--radius-lg);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: var(--pearl-white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        .tab-content {
+            margin-top: 2rem;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--pearl-white);
+            border: 1px solid var(--black-lighter);
+            background: var(--black-light);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            border-color: var(--royal-gold);
+        }
+        
+        .feature-highlight {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black-lighter) 100%);
+            border-left: 4px solid var(--royal-gold);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-crown me-2"></i>Luxury Venues
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home2.html">Home 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="packages.html">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Gallery -->
+    <section class="hero-section">
+        <img src="https://picsum.photos/seed/venue1hero/1920/800.jpg" alt="Grand Ballroom" class="hero-image">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="venue-title-section">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <h1 class="display-3 fw-bold mb-3">Grand Ballroom Manhattan</h1>
+                            <p class="lead mb-2">
+                                <i class="fas fa-map-marker-alt me-2"></i>New York, NY
+                            </p>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="ms-2">4.8 (127 reviews)</span>
+                                </div>
+                                <span class="badge bg-gold text-black">Featured Venue</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <div class="price-display">$15,000</div>
+                            <p class="mb-0">per day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column - Details -->
+                <div class="col-lg-8">
+                    <!-- Image Gallery -->
+                    <div class="mb-5">
+                        <img src="https://picsum.photos/seed/venue1main/800/500.jpg" alt="Main Venue" class="image-gallery-main w-100 mb-3" id="mainImage">
+                        <div class="row g-2">
+                            <div class="col-3">
+                                <img src="https://picsum.photos/seed/venue1thumb1/200/150.jpg" alt="Gallery 1" class="gallery-thumbnail w-100" onclick="changeMainImage(this.src)">
+                            </div>
+                            <div class="col-3">
+                                <img src="https://picsum.photos/seed/venue1thumb2/200/150.jpg" alt="Gallery 2" class="gallery-thumbnail w-100" onclick="changeMainImage(this.src)">
+                            </div>
+                            <div class="col-3">
+                                <img src="https://picsum.photos/seed/venue1thumb3/200/150.jpg" alt="Gallery 3" class="gallery-thumbnail w-100" onclick="changeMainImage(this.src)">
+                            </div>
+                            <div class="col-3">
+                                <img src="https://picsum.photos/seed/venue1thumb4/200/150.jpg" alt="Gallery 4" class="gallery-thumbnail w-100" onclick="changeMainImage(this.src)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs" id="venueTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button">Overview</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="amenities-tab" data-bs-toggle="tab" data-bs-target="#amenities" type="button">Amenities</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="availability-tab" data-bs-toggle="tab" data-bs-target="#availability" type="button">Availability</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">Reviews</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="venueTabsContent">
+                        <!-- Overview Tab -->
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                            <div class="info-card">
+                                <h5>About This Venue</h5>
+                                <p>Experience the epitome of luxury at the Grand Ballroom Manhattan, an exquisite event space nestled in the heart of New York City. This stunning venue combines timeless elegance with modern sophistication, creating the perfect backdrop for your most memorable occasions.</p>
+                                <p>With soaring ceilings, crystal chandeliers, and floor-to-ceiling windows offering breathtaking city views, our ballroom provides an unparalleled setting for weddings, corporate galas, and exclusive celebrations. The venue can accommodate up to 300 guests for a seated dinner or 500 for a cocktail reception.</p>
+                            </div>
+
+                            <div class="info-card">
+                                <h5>Capacity & Layout</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="feature-highlight">
+                                            <h6>Banquet Style</h6>
+                                            <p class="mb-0">Up to 300 guests</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="feature-highlight">
+                                            <h6>Cocktail Reception</h6>
+                                            <p class="mb-0">Up to 500 guests</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="feature-highlight">
+                                            <h6>Theater Style</h6>
+                                            <p class="mb-0">Up to 400 guests</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="feature-highlight">
+                                            <h6>Classroom Style</h6>
+                                            <p class="mb-0">Up to 200 guests</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <h5>Event Types</h5>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-secondary p-2">Weddings</span>
+                                    <span class="badge bg-secondary p-2">Corporate Events</span>
+                                    <span class="badge bg-secondary p-2">Galas</span>
+                                    <span class="badge bg-secondary p-2">Fundraisers</span>
+                                    <span class="badge bg-secondary p-2">Product Launches</span>
+                                    <span class="badge bg-secondary p-2">Award Ceremonies</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Amenities Tab -->
+                        <div class="tab-pane fade" id="amenities" role="tabpanel">
+                            <div class="info-card">
+                                <h5>Venue Amenities</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="amenity-item">
+                                            <i class="fas fa-parking"></i>
+                                            <span>Valet Parking Available</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>Full Catering Service</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-tv"></i>
+                                            <span>AV Equipment Included</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-wifi"></i>
+                                            <span>High-Speed WiFi</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-snowflake"></i>
+                                            <span>Climate Control</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="amenity-item">
+                                            <i class="fas fa-wheelchair"></i>
+                                            <span>Wheelchair Accessible</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-microphone"></i>
+                                            <span>Sound System</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-video"></i>
+                                            <span>Projection Screens</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-concierge-bell"></i>
+                                            <span>Event Coordinator</span>
+                                        </div>
+                                        <div class="amenity-item">
+                                            <i class="fas fa-users"></i>
+                                            <span>Staff Support</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <h5>Catering Options</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Gourmet menu selections</li>
+                                    <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Dietary accommodations</li>
+                                    <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Bar service packages</li>
+                                    <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Custom cake designs</li>
+                                    <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Late-night snacks</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Availability Tab -->
+                        <div class="tab-pane fade" id="availability" role="tabpanel">
+                            <div class="calendar-container">
+                                <h5 class="mb-3">Select Your Date</h5>
+                                <div class="row g-2" id="calendarGrid">
+                                    <!-- Calendar will be generated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div class="info-card mt-4">
+                                <h5>Booking Information</h5>
+                                <p><strong>Minimum Booking:</strong> 6 hours</p>
+                                <p><strong>Setup Time:</strong> 2 hours included</p>
+                                <p><strong>Cleanup Time:</strong> 1 hour included</p>
+                                <p><strong>Security Deposit:</strong> $5,000 (refundable)</p>
+                                <p><strong>Cancellation Policy:</strong> 30 days notice for full refund</p>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Tab -->
+                        <div class="tab-pane fade" id="reviews" role="tabpanel">
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://picsum.photos/seed/reviewer1/50/50.jpg" alt="Sarah Johnson" class="review-avatar">
+                                    <div>
+                                        <h6 class="mb-1">Sarah Johnson</h6>
+                                        <div class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <small class="ms-auto">2 weeks ago</small>
+                                </div>
+                                <p>"Absolutely stunning venue! Our wedding was perfect thanks to the amazing team and beautiful space. The crystal chandeliers and city views created such a romantic atmosphere."</p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://picsum.photos/seed/reviewer2/50/50.jpg" alt="Michael Chen" class="review-avatar">
+                                    <div>
+                                        <h6 class="mb-1">Michael Chen</h6>
+                                        <div class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <small class="ms-auto">1 month ago</small>
+                                </div>
+                                <p>"Hosted our corporate gala here and it was exceptional. The AV equipment was top-notch, and the staff was incredibly professional. Will definitely book again!"</p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://picsum.photos/seed/reviewer3/50/50.jpg" alt="Emily Davis" class="review-avatar">
+                                    <div>
+                                        <h6 class="mb-1">Emily Davis</h6>
+                                        <div class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <small class="ms-auto">2 months ago</small>
+                                </div>
+                                <p>"Beautiful venue with excellent service. The catering was delicious and the event coordinator helped with every detail. Only minor issue was parking availability during peak hours."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Booking -->
+                <div class="col-lg-4">
+                    <div class="booking-sticky">
+                        <div class="pricing-card">
+                            <h5 class="text-center mb-4">Book This Venue</h5>
+                            
+                            <div class="text-center mb-4">
+                                <div class="price-display">$15,000</div>
+                                <p class="text-muted">per day</p>
+                            </div>
+
+                            <form id="bookingForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Event Date</label>
+                                    <input type="date" class="form-control" id="eventDate" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Event Type</label>
+                                    <select class="form-control" required>
+                                        <option value="">Select Event Type</option>
+                                        <option value="wedding">Wedding</option>
+                                        <option value="corporate">Corporate Event</option>
+                                        <option value="party">Private Party</option>
+                                        <option value="gala">Gala/Fundraiser</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Number of Guests</label>
+                                    <input type="number" class="form-control" placeholder="Expected guests" min="1" max="500" required>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Special Requests</label>
+                                    <textarea class="form-control" rows="3" placeholder="Tell us about your event..."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary w-100 mb-3">
+                                    <i class="fas fa-calendar-check me-2"></i>Check Availability
+                                </button>
+                                
+                                <button type="button" class="btn btn-outline-primary w-100 mb-3" onclick="addToWishlist(1)">
+                                    <i class="far fa-heart me-2"></i>Add to Wishlist
+                                </button>
+                                
+                                <button type="button" class="btn btn-outline-secondary w-100" onclick="scheduleTour()">
+                                    <i class="fas fa-video me-2"></i>Schedule Virtual Tour
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="info-card mt-4">
+                            <h5>Quick Info</h5>
+                            <div class="amenity-item">
+                                <i class="fas fa-users"></i>
+                                <span>Capacity: 300-500 guests</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Available: 9 AM - 12 AM</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fas fa-phone"></i>
+                                <span>Contact: (555) 123-4567</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email: info@grandballroom.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Venue Image">
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Luxury Venue Booking. All rights reserved.</p>
+            <div class="mt-3">
+                <a href="#" class="text-gold me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-gold"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Change main gallery image
+        function changeMainImage(src) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = src.replace('/200/150', '/800/500');
+            
+            // Update active thumbnail
+            document.querySelectorAll('.gallery-thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        // Open lightbox
+        document.getElementById('mainImage').addEventListener('click', function() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = this.src;
+            lightbox.style.display = 'flex';
+        });
+        
+        // Close lightbox
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+        
+        // Generate calendar
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Get days in month
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Generate calendar days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'col calendar-day';
+                dayElement.textContent = day;
+                
+                // Randomly mark some days as booked
+                const isBooked = Math.random() > 0.7;
+                if (isBooked) {
+                    dayElement.classList.add('booked');
+                    dayElement.title = 'Booked';
+                } else {
+                    dayElement.classList.add('available');
+                    dayElement.onclick = function() {
+                        selectDate(this, day);
+                    };
+                }
+                
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+        
+        // Select date
+        function selectDate(element, day) {
+            if (element.classList.contains('booked')) return;
+            
+            // Remove previous selection
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected');
+            });
+            
+            // Add selection
+            element.classList.add('selected');
+            
+            // Update date input
+            const today = new Date();
+            const selectedDate = new Date(today.getFullYear(), today.getMonth(), day);
+            document.getElementById('eventDate').value = selectedDate.toISOString().split('T')[0];
+        }
+        
+        // Schedule tour
+        function scheduleTour() {
+            showNotification('Virtual tour scheduling coming soon!', 'info');
+        }
+        
+        // Booking form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm('#bookingForm')) {
+                showNotification('Checking availability...', 'info');
+                
+                setTimeout(() => {
+                    showNotification('Venue available! Redirecting to payment...', 'success');
+                    setTimeout(() => {
+                        // Redirect to payment page
+                        window.location.href = '#payment';
+                    }, 2000);
+                }, 1500);
+            }
+        });
+        
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+            initializeGallery();
+        });
+        
+        // Set minimum date for event date input
+        document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

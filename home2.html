@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner Mode - Professional Event Planning Dashboard</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .planner-hero {
+            background: linear-gradient(135deg, #0B0F14 0%, #1A1F2E 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .stat-card {
+            background: rgba(26, 31, 46, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--royal-gold);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--royal-gold) 0%, transparent 100%);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--royal-gold);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        .timeline-content {
+            background: var(--black-light);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--black-lighter);
+            width: 45%;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+        }
+        
+        .timeline-content:hover {
+            border-color: var(--royal-gold);
+            transform: scale(1.05);
+        }
+        
+        .compare-card {
+            background: var(--black-light);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .compare-card:hover {
+            border-color: var(--royal-gold);
+            transform: translateY(-5px);
+        }
+        
+        .compare-card.selected {
+            border-color: var(--royal-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .event-type-card {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 2rem;
+            cursor: pointer;
+        }
+        
+        .event-type-card:hover {
+            border-color: var(--royal-gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .event-type-card i {
+            font-size: 3rem;
+            color: var(--royal-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .progress-custom {
+            height: 8px;
+            background: var(--black-lighter);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-custom {
+            height: 100%;
+            background: linear-gradient(90deg, var(--royal-gold) 0%, var(--gold-light) 100%);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-crown me-2"></i>Luxury Venues
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="home2.html">Home 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="packages.html">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Planning Console Hero -->
+    <section class="planner-hero min-vh-100 d-flex align-items-center">
+        <div class="grid-background"></div>
+        <div class="container position-relative">
+            <div class="text-center mb-5">
+                <h1 class="display-3 fw-bold mb-4">
+                    Event Planning <span class="text-gold">Console</span>
+                </h1>
+                <p class="lead">Professional event planning dashboard for seamless venue management</p>
+            </div>
+            
+            <!-- Stats Dashboard -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="stat-card p-4 text-center">
+                        <i class="fas fa-calendar-check fa-2x text-gold mb-3"></i>
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Upcoming Events</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card p-4 text-center">
+                        <i class="fas fa-dollar-sign fa-2x text-gold mb-3"></i>
+                        <div class="stat-number">$45K</div>
+                        <div class="stat-label">Budget Used</div>
+                        <div class="progress-custom mt-2">
+                            <div class="progress-bar-custom" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card p-4 text-center">
+                        <i class="fas fa-building fa-2x text-gold mb-3"></i>
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Venues Compared</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card p-4 text-center">
+                        <i class="fas fa-tasks fa-2x text-gold mb-3"></i>
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Tasks Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Planning Timeline -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Event Planning Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-gold me-2"></i>
+                            <h5 class="mb-0">Choose Venue</h5>
+                        </div>
+                        <p class="mb-2">Select the perfect venue for your event type and guest count</p>
+                        <span class="badge bg-success">Completed</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-box text-gold me-2"></i>
+                            <h5 class="mb-0">Select Package</h5>
+                        </div>
+                        <p class="mb-2">Choose catering, decoration, and entertainment packages</p>
+                        <span class="badge bg-warning">In Progress</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-calendar text-gold me-2"></i>
+                            <h5 class="mb-0">Confirm Date</h5>
+                        </div>
+                        <p class="mb-2">Finalize event date and send save-the-date notifications</p>
+                        <span class="badge bg-secondary">Pending</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-credit-card text-gold me-2"></i>
+                            <h5 class="mb-0">Payments</h5>
+                        </div>
+                        <p class="mb-2">Complete payment schedule and finalize contracts</p>
+                        <span class="badge bg-secondary">Pending</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-glass-cheers text-gold me-2"></i>
+                            <h5 class="mb-0">Event Day</h5>
+                        </div>
+                        <p class="mb-2">Execute your perfect event with our support team</p>
+                        <span class="badge bg-secondary">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compare Venues Tool -->
+    <section class="section bg-black-light">
+        <div class="container">
+            <h2 class="section-title">Compare Venues</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="compare-card p-4" onclick="selectCompareCard(this)">
+                        <div class="position-relative">
+                            <img src="https://picsum.photos/seed/compare1/350/200.jpg" class="img-fluid rounded mb-3" alt="Venue">
+                            <span class="badge bg-gold position-absolute top-0 end-0 m-2">Best Value</span>
+                        </div>
+                        <h5>Grand Ballroom</h5>
+                        <p class="text-gold fw-bold">$15,000/day</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-gold me-2"></i>300 guests</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Catering included</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>AV equipment</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Valet parking</li>
+                        </ul>
+                        <button class="btn btn-outline-primary w-100">View Details</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="compare-card p-4" onclick="selectCompareCard(this)">
+                        <div class="position-relative">
+                            <img src="https://picsum.photos/seed/compare2/350/200.jpg" class="img-fluid rounded mb-3" alt="Venue">
+                        </div>
+                        <h5>Rooftop Garden</h5>
+                        <p class="text-gold fw-bold">$12,000/day</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-gold me-2"></i>200 guests</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>City views</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Outdoor space</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Bar service</li>
+                        </ul>
+                        <button class="btn btn-outline-primary w-100">View Details</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="compare-card p-4" onclick="selectCompareCard(this)">
+                        <div class="position-relative">
+                            <img src="https://picsum.photos/seed/compare3/350/200.jpg" class="img-fluid rounded mb-3" alt="Venue">
+                        </div>
+                        <h5>Historic Mansion</h5>
+                        <p class="text-gold fw-bold">$10,000/day</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-gold me-2"></i>250 guests</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Garden ceremony</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Historic charm</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Photo locations</li>
+                        </ul>
+                        <button class="btn btn-outline-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-primary btn-lg">
+                    <i class="fas fa-balance-scale me-2"></i>Compare Selected Venues
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Event Types -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Popular Event Types</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="event-type-card" onclick="selectEventType(this, 'wedding')">
+                        <i class="fas fa-ring"></i>
+                        <h4>Weddings</h4>
+                        <p>Romantic venues for your perfect day</p>
+                        <span class="badge bg-secondary">45 venues</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-type-card" onclick="selectEventType(this, 'corporate')">
+                        <i class="fas fa-briefcase"></i>
+                        <h4>Corporate Events</h4>
+                        <p>Professional spaces for business meetings</p>
+                        <span class="badge bg-secondary">32 venues</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-type-card" onclick="selectEventType(this, 'birthday')">
+                        <i class="fas fa-birthday-cake"></i>
+                        <h4>Birthday Parties</h4>
+                        <p>Fun venues for memorable celebrations</p>
+                        <span class="badge bg-secondary">28 venues</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-type-card" onclick="selectEventType(this, 'concert')">
+                        <i class="fas fa-music"></i>
+                        <h4>Concerts</h4>
+                        <p>Acoustic spaces for live performances</p>
+                        <span class="badge bg-secondary">18 venues</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-type-card" onclick="selectEventType(this, 'exhibition')">
+                        <i class="fas fa-palette"></i>
+                        <h4>Exhibitions</h4>
+                        <p>Gallery spaces for art and displays</p>
+                        <span class="badge bg-secondary">22 venues</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-type-card" onclick="selectEventType(this, 'conference')">
+                        <i class="fas fa-users"></i>
+                        <h4>Conferences</h4>
+                        <p>Modern facilities for large gatherings</p>
+                        <span class="badge bg-secondary">35 venues</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="section bg-black-light">
+        <div class="container">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center p-4 bg-black rounded">
+                        <i class="fas fa-plus-circle fa-3x text-gold me-4"></i>
+                        <div>
+                            <h5>Create New Event</h5>
+                            <p>Start planning your next event</p>
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center p-4 bg-black rounded">
+                        <i class="fas fa-search fa-3x text-gold me-4"></i>
+                        <div>
+                            <h5>Advanced Search</h5>
+                            <p>Find venues with specific requirements</p>
+                            <button class="btn btn-outline-primary">Search Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Luxury Venue Booking. All rights reserved.</p>
+            <div class="mt-3">
+                <a href="#" class="text-gold me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-gold me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-gold"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Initialize dashboard animations
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
+        
+        // Select compare card
+        function selectCompareCard(card) {
+            card.classList.toggle('selected');
+            updateCompareCount();
+        }
+        
+        // Select event type
+        function selectEventType(card, eventType) {
+            // Remove previous selection
+            document.querySelectorAll('.event-type-card').forEach(c => {
+                c.style.borderColor = 'var(--black-lighter)';
+            });
+            
+            // Add selection to clicked card
+            card.style.borderColor = 'var(--royal-gold)';
+            
+            // Redirect to venues with filter
+            setTimeout(() => {
+                window.location.href = `venues.html?event=${eventType}`;
+            }, 500);
+        }
+        
+        // Update compare count
+        function updateCompareCount() {
+            const selected = document.querySelectorAll('.compare-card.selected').length;
+            const button = document.querySelector('.btn-primary.btn-lg');
+            if (selected > 0) {
+                button.innerHTML = `<i class="fas fa-balance-scale me-2"></i>Compare ${selected} Venue${selected > 1 ? 's' : ''}`;
+            } else {
+                button.innerHTML = '<i class="fas fa-balance-scale me-2"></i>Compare Selected Venues';
+            }
+        }
+    </script>
+</body>
+</html>

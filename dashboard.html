@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Event Control Panel</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .dashboard-container {
+            background: var(--midnight-black);
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            background: var(--black-light);
+            min-height: 100vh;
+            border-right: 1px solid var(--black-lighter);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--black-lighter);
+            text-align: center;
+        }
+        
+        .sidebar-logo {
+            color: var(--royal-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+        
+        .sidebar-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--pearl-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--royal-gold);
+            border-left-color: var(--royal-gold);
+        }
+        
+        .sidebar-item i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+        
+        .dashboard-header {
+            background: var(--black-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .welcome-text h2 {
+            color: var(--pearl-white);
+            margin-bottom: 0.25rem;
+        }
+        
+        .welcome-text p {
+            color: var(--pearl-white);
+            opacity: 0.7;
+            margin-bottom: 0;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .notification-btn {
+            position: relative;
+            background: var(--black-lighter);
+            border: none;
+            color: var(--pearl-white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-btn:hover {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--royal-gold);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--royal-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--royal-gold) 0%, var(--gold-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--midnight-black);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--pearl-white);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            color: var(--pearl-white);
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .content-card {
+            background: var(--black-light);
+            border: 1px solid var(--black-lighter);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content-card h3 {
+            color: var(--pearl-white);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--royal-gold);
+        }
+        
+        .event-item {
+            background: var(--black-lighter);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .event-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .event-info h5 {
+            color: var(--pearl-white);
+            margin-bottom: 0.25rem;
+        }
+        
+        .event-info p {
+            color: var(--pearl-white);
+            opacity: 0.7;
+            margin-bottom: 0;
+            font-size: 0.875rem;
+        }
+        
+        .event-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-upcoming {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--royal-gold);
+        }
+        
+        .status-completed {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+        
+        .status-cancelled {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+        
+        .booking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--black-lighter);
+        }
+        
+        .booking-item:last-child {
+            border-bottom: none;
+        }
+        
+        .booking-venue {
+            color: var(--pearl-white);
+            font-weight: 600;
+        }
+        
+        .booking-details {
+            color: var(--pearl-white);
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .booking-price {
+            color: var(--royal-gold);
+            font-weight: 700;
+        }
+        
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .wishlist-item {
+            background: var(--black-lighter);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .wishlist-image {
+            height: 120px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .wishlist-info {
+            padding: 0.75rem;
+        }
+        
+        .wishlist-name {
+            color: var(--pearl-white);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .wishlist-price {
+            color: var(--royal-gold);
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+                padding-top: 4rem;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <i class="fas fa-crown me-2"></i>Luxury Venues
+                </a>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#overview" class="sidebar-item active" onclick="showSection('overview')">
+                    <i class="fas fa-tachometer-alt"></i>Overview
+                </a>
+                <a href="#events" class="sidebar-item" onclick="showSection('events')">
+                    <i class="fas fa-calendar"></i>My Events
+                </a>
+                <a href="#bookings" class="sidebar-item" onclick="showSection('bookings')">
+                    <i class="fas fa-ticket-alt"></i>Bookings
+                </a>
+                <a href="#wishlist" class="sidebar-item" onclick="showSection('wishlist')">
+                    <i class="fas fa-heart"></i>Wishlist
+                </a>
+                <a href="#profile" class="sidebar-item" onclick="showSection('profile')">
+                    <i class="fas fa-user"></i>Profile
+                </a>
+                <a href="#settings" class="sidebar-item" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i>Settings
+                </a>
+                <a href="index.html" class="sidebar-item">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="welcome-text">
+                    <h2>Welcome back, Sarah!</h2>
+                    <p>Manage your events and bookings from your control panel</p>
+                </div>
+                <div class="user-menu">
+                    <button class="notification-btn" onclick="showNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <img src="https://picsum.photos/seed/useravatar/40/40.jpg" alt="User Avatar" class="user-avatar">
+                </div>
+            </div>
+            
+            <!-- Overview Section -->
+            <section id="overview-section" class="dashboard-section">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Upcoming Events</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Saved Venues</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-number">$45K</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                </div>
+                
+                <!-- Recent Events -->
+                <div class="content-card">
+                    <h3>Recent Events</h3>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Wedding Ceremony</h5>
+                            <p>Grand Ballroom Manhattan • March 25, 2024</p>
+                        </div>
+                        <span class="event-status status-upcoming">Upcoming</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Corporate Gala</h5>
+                            <p>Luxury Casino Ballroom • March 15, 2024</p>
+                        </div>
+                        <span class="event-status status-completed">Completed</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Birthday Party</h5>
+                            <p>Rooftop Garden LA • February 28, 2024</p>
+                        </div>
+                        <span class="event-status status-completed">Completed</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Events Section -->
+            <section id="events-section" class="dashboard-section" style="display: none;">
+                <div class="content-card">
+                    <h3>My Events</h3>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Wedding Ceremony</h5>
+                            <p>Grand Ballroom Manhattan • March 25, 2024 • 150 guests</p>
+                        </div>
+                        <span class="event-status status-upcoming">Upcoming</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Anniversary Party</h5>
+                            <p>Oceanfront Resort Miami • April 10, 2024 • 80 guests</p>
+                        </div>
+                        <span class="event-status status-upcoming">Upcoming</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Corporate Gala</h5>
+                            <p>Luxury Casino Ballroom • March 15, 2024 • 200 guests</p>
+                        </div>
+                        <span class="event-status status-completed">Completed</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-info">
+                            <h5>Birthday Party</h5>
+                            <p>Rooftop Garden LA • February 28, 2024 • 50 guests</p>
+                        </div>
+                        <span class="event-status status-completed">Completed</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Bookings Section -->
+            <section id="bookings-section" class="dashboard-section" style="display: none;">
+                <div class="content-card">
+                    <h3>Booking History</h3>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-venue">Grand Ballroom Manhattan</div>
+                            <div class="booking-details">March 25, 2024 • Wedding Package</div>
+                        </div>
+                        <div class="booking-price">$15,000</div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-venue">Oceanfront Resort Miami</div>
+                            <div class="booking-details">April 10, 2024 • Anniversary Package</div>
+                        </div>
+                        <div class="booking-price">$8,000</div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-venue">Luxury Casino Ballroom</div>
+                            <div class="booking-details">March 15, 2024 • Corporate Package</div>
+                        </div>
+                        <div class="booking-price">$12,000</div>
+                    </div>
+                    <div class="booking-item">
+                        <div>
+                            <div class="booking-venue">Rooftop Garden LA</div>
+                            <div class="booking-details">February 28, 2024 • Party Package</div>
+                        </div>
+                        <div class="booking-price">$6,000</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Wishlist Section -->
+            <section id="wishlist-section" class="dashboard-section" style="display: none;">
+                <div class="content-card">
+                    <h3>My Wishlist</h3>
+                    <div class="wishlist-grid">
+                        <div class="wishlist-item" onclick="viewVenue(1)">
+                            <img src="https://picsum.photos/seed/wish1/200/120.jpg" alt="Venue" class="wishlist-image">
+                            <div class="wishlist-info">
+                                <div class="wishlist-name">Historic Mansion Chicago</div>
+                                <div class="wishlist-price">$10,000/day</div>
+                            </div>
+                        </div>
+                        <div class="wishlist-item" onclick="viewVenue(2)">
+                            <img src="https://picsum.photos/seed/wish2/200/120.jpg" alt="Venue" class="wishlist-image">
+                            <div class="wishlist-info">
+                                <div class="wishlist-name">Modern Art Gallery SF</div>
+                                <div class="wishlist-price">$8,000/day</div>
+                            </div>
+                        </div>
+                        <div class="wishlist-item" onclick="viewVenue(3)">
+                            <img src="https://picsum.photos/seed/wish3/200/120.jpg" alt="Venue" class="wishlist-image">
+                            <div class="wishlist-info">
+                                <div class="wishlist-name">Sky Lounge NYC</div>
+                                <div class="wishlist-price">$20,000/day</div>
+                            </div>
+                        </div>
+                        <div class="wishlist-item" onclick="viewVenue(4)">
+                            <img src="https://picsum.photos/seed/wish4/200/120.jpg" alt="Venue" class="wishlist-image">
+                            <div class="wishlist-info">
+                                <div class="wishlist-name">Garden Paradise</div>
+                                <div class="wishlist-price">$12,000/day</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Profile Section -->
+            <section id="profile-section" class="dashboard-section" style="display: none;">
+                <div class="content-card">
+                    <h3>Profile Information</h3>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-white">Full Name</label>
+                                <input type="text" class="form-control" value="Sarah Johnson">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-white">Email</label>
+                                <input type="email" class="form-control" value="sarah.johnson@email.com">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-white">Phone</label>
+                                <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-white">Location</label>
+                                <input type="text" class="form-control" value="New York, NY">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- Settings Section -->
+            <section id="settings-section" class="dashboard-section" style="display: none;">
+                <div class="content-card">
+                    <h3>Settings</h3>
+                    <div class="mb-4">
+                        <h5 class="text-white mb-3">Notifications</h5>
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                            <label class="form-check-label text-white" for="emailNotifications">
+                                Email notifications for new venues
+                            </label>
+                        </div>
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="bookingReminders" checked>
+                            <label class="form-check-label text-white" for="bookingReminders">
+                                Booking reminders
+                            </label>
+                        </div>
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="specialOffers" checked>
+                            <label class="form-check-label text-white" for="specialOffers">
+                                Special offers and promotions
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="text-white mb-3">Privacy</h5>
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="profileVisibility">
+                            <label class="form-check-label text-white" for="profileVisibility">
+                                Make profile visible to other users
+                            </label>
+                        </div>
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="shareData">
+                            <label class="form-check-label text-white" for="shareData">
+                                Share data with partners for better recommendations
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">Save Settings</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Show dashboard section
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(sec => {
+                sec.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(section + '-section').style.display = 'block';
+            
+            // Update active menu item
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Close mobile sidebar
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+        
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+        
+        // Show notifications
+        function showNotifications() {
+            showNotification('You have 3 new notifications', 'info');
+        }
+        
+        // View venue from wishlist
+        function viewVenue(venueId) {
+            showNotification('Loading venue details...', 'info');
+            setTimeout(() => {
+                window.location.href = `venue-detail.html?id=${venueId}`;
+            }, 1000);
+        }
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            
+            // Load user data
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                const user = JSON.parse(userData);
+                // Update welcome message with user's name
+                const welcomeText = document.querySelector('.welcome-text h2');
+                if (welcomeText && user.fullName) {
+                    welcomeText.textContent = `Welcome back, ${user.fullName.split(' ')[0]}!`;
+                }
+            }
+        });
+        
+        // Handle form submissions
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                showNotification('Settings saved successfully!', 'success');
+            });
+        });
+        
+        // Close mobile sidebar when clicking outside
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !toggle.contains(e.target) &&
+                sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+        
+        // Animate stats on page load
+        setTimeout(() => {
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                const finalValue = stat.textContent;
+                if (finalValue.includes('$')) {
+                    animateValue(stat, 0, parseInt(finalValue.replace(/[^0-9]/g, '')), 1000, '$');
+                } else {
+                    animateValue(stat, 0, parseInt(finalValue), 1000);
+                }
+            });
+        }, 500);
+        
+        // Animate number function
+        function animateValue(element, start, end, duration, prefix = '') {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                
+                if (prefix === '$') {
+                    element.textContent = prefix + Math.floor(current).toLocaleString() + 'K';
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+    </script>
+</body>
+</html>
