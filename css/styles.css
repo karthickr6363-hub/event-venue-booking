@@ -43,6 +43,24 @@
     --transition-slow: 0.5s ease;
 }
 
+/* Light Mode Variables */
+[data-theme="light"] {
+    --midnight-black: #F6F7F9;
+    --pearl-white: #0B0F14;
+    --royal-gold: #D4AF37;
+    
+    --black-light: #E8EAED;
+    --black-lighter: #D1D5DB;
+    --white-dark: #1A1F2E;
+    --gold-light: #E6C547;
+    --gold-dark: #B8941F;
+    
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+}
+
 /* Reset & Base Styles */
 * {
     margin: 0;
@@ -121,6 +139,21 @@ a:hover {
     color: var(--royal-gold) !important;
 }
 
+/* Navigation Item Ordering */
+.navbar-nav .nav-item:not(:last-child) {
+    margin-right: auto;
+}
+
+.navbar-nav .nav-item:last-child {
+    margin-right: 0;
+}
+
+.navbar-nav .nav-item:last-child .nav-link,
+.navbar-nav .nav-item:last-child .theme-toggle {
+    margin-right: 0;
+    gap: 0.5rem;
+}
+
 .navbar-nav .nav-link::after {
     content: '';
     position: absolute;
@@ -135,6 +168,138 @@ a:hover {
 .navbar-nav .nav-link:hover::after,
 .navbar-nav .nav-link.active::after {
     width: 100%;
+}
+
+/* Dark Mode Toggle */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--royal-gold);
+    color: var(--pearl-white);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.theme-toggle:hover {
+    background: var(--royal-gold);
+    color: var(--midnight-black);
+    transform: translateY(-2px);
+}
+
+.theme-toggle i {
+    font-size: 1rem;
+}
+
+[data-theme="light"] .theme-toggle {
+    background: var(--black-light);
+    border-color: var(--gold-dark);
+    color: var(--pearl-white);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+    background: var(--royal-gold);
+    color: var(--pearl-white);
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    background: var(--black-light);
+    border: 1px solid var(--black-lighter);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem 0;
+    min-width: 150px;
+}
+
+.dropdown-item {
+    color: var(--pearl-white);
+    padding: 0.5rem 1rem;
+    transition: var(--transition-fast);
+    font-size: 0.875rem;
+}
+
+.dropdown-item:hover {
+    background: var(--royal-gold);
+    color: var(--midnight-black);
+}
+
+.dropdown-item:focus {
+    background: var(--royal-gold);
+    color: var(--midnight-black);
+}
+
+[data-theme="light"] .dropdown-menu {
+    background: var(--pearl-white);
+    border: 1px solid var(--black-lighter);
+}
+
+[data-theme="light"] .dropdown-item {
+    color: var(--midnight-black);
+}
+
+[data-theme="light"] .dropdown-item:hover {
+    background: var(--royal-gold);
+    color: var(--pearl-white);
+}
+
+/* Footer Styles */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--black-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pearl-white);
+    transition: var(--transition-medium);
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.social-icon:hover {
+    background: var(--royal-gold);
+    color: var(--midnight-black);
+    transform: translateY(-3px);
+    border-color: var(--gold-light);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+}
+
+.social-icon i {
+    font-size: 1.2rem;
+}
+
+/* Footer Links */
+footer a {
+    transition: var(--transition-fast);
+}
+
+footer a:hover {
+    color: var(--royal-gold) !important;
+    transform: translateX(5px);
+}
+
+/* Light Mode Footer */
+[data-theme="light"] .social-icon {
+    background: var(--pearl-white);
+    color: var(--midnight-black);
+    border-color: var(--black-lighter);
+}
+
+[data-theme="light"] .social-icon:hover {
+    background: var(--royal-gold);
+    color: var(--pearl-white);
 }
 
 /* Buttons */
@@ -513,6 +678,282 @@ a:hover {
         font-size: 2.5rem;
     }
     
+    .navbar-nav {
+        background: var(--midnight-black);
+        border-radius: var(--radius-lg);
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+    
+    .venue-finder {
+        padding: 1rem;
+    }
+    
+    .venue-finder .row {
+        gap: 1rem;
+    }
+    
+    .venue-finder .form-control {
+        font-size: 0.875rem;
+    }
+    
+    .venue-finder .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.875rem;
+    }
+    
+    .venue-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-img-top {
+        height: 200px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .why-choose-us .row {
+        gap: 1rem;
+    }
+    
+    .why-choose-us h4 {
+        font-size: 1.1rem;
+    }
+    
+    .testimonial-card {
+        padding: 1rem;
+    }
+    
+    .partner-logo {
+        max-width: 100px;
+        height: auto;
+    }
+    
+    .cta-banner h2 {
+        font-size: 1.75rem;
+    }
+    
+    .cta-banner .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .navbar-nav {
+        padding: 0.75rem;
+        margin: 0.25rem;
+    }
+    
+    .venue-finder {
+        padding: 1rem;
+    }
+    
+    .venue-finder .row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .venue-finder .col-md-3,
+    .venue-finder .col-md-2 {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+    
+    .venue-finder .form-control {
+        font-size: 0.875rem;
+        padding: 0.75rem;
+    }
+    
+    .venue-finder .btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .venue-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-img-top {
+        height: 180px;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    .card-title {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .why-choose-us .row {
+        gap: 0.75rem;
+    }
+    
+    .why-choose-us h4 {
+        font-size: 1rem;
+    }
+    
+    .why-choose-us p {
+        font-size: 0.875rem;
+    }
+    
+    .testimonial-card {
+        padding: 0.75rem;
+    }
+    
+    .testimonial-card img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .testimonial-card h6 {
+        font-size: 0.875rem;
+    }
+    
+    .partner-logo {
+        max-width: 80px;
+        height: auto;
+    }
+    
+    .partner-logo img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .cta-banner {
+        padding: 2rem 1rem;
+    }
+    
+    .cta-banner h2 {
+        font-size: 1.5rem;
+    }
+    
+    .cta-banner .lead {
+        font-size: 1rem;
+    }
+    
+    .cta-banner .btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Hide/Show mobile menu */
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+        width: 280px;
+        padding: 1rem;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.875rem;
+    }
+    
+    .venue-finder {
+        padding: 0.75rem;
+    }
+    
+    .venue-finder .form-label {
+        font-size: 0.875rem;
+    }
+    
+    .venue-card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .card-img-top {
+        height: 150px;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    .card-title {
+        font-size: 0.875rem;
+    }
+    
+    .badge {
+        font-size: 0.625rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+    }
+    
+    .testimonial-card {
+        padding: 0.5rem;
+    }
+    
+    .partner-logo {
+        max-width: 60px;
+    }
+    
+    .cta-banner {
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .cta-banner h2 {
+        font-size: 1.25rem;
+    }
+    
+    .cta-banner .lead {
+        font-size: 0.875rem;
+    }
+    
+    .cta-banner .btn {
+        font-size: 0.75rem;
+    }
+}
+    
     .hero-subtitle {
         font-size: 1rem;
     }
@@ -520,6 +961,11 @@ a:hover {
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
+    }
+    
+    .hero-buttons .btn {
+        margin-bottom: 0.5rem;
     }
     
     .navbar-nav {

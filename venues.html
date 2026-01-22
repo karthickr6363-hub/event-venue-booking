@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venues - Find Your Perfect Event Space</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -99,7 +102,8 @@
         .venue-rating {
             position: absolute;
             top: 1rem;
-            right: 1rem;
+            left: 1rem;
+            z-index: 2;
             background: rgba(11, 15, 20, 0.9);
             color: var(--pearl-white);
             padding: 0.25rem 0.5rem;
@@ -109,8 +113,27 @@
             gap: 0.25rem;
         }
         
+        .wishlist-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 4;
+            background: none;
+            border: none;
+            color: var(--pearl-white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .wishlist-btn:hover {
+            color: var(--royal-gold);
+            transform: scale(1.2);
+        }
+        
         .venue-content {
             padding: 1.5rem;
+            text-align: center;
         }
         
         .venue-title {
@@ -118,6 +141,7 @@
             font-family: var(--font-primary);
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
+            text-align: center;
         }
         
         .venue-location {
@@ -125,6 +149,7 @@
             opacity: 0.7;
             font-size: 0.875rem;
             margin-bottom: 1rem;
+            text-align: center;
         }
         
         .venue-price {
@@ -132,6 +157,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            text-align: center;
         }
         
         .venue-features {
@@ -139,6 +165,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            justify-content: center;
         }
         
         .venue-feature {
@@ -236,11 +263,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="home2.html">Home 2</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="homeDropdown">
+                            <li><a class="dropdown-item" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="home2.html">Home 2</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="venues.html">Venues</a>
@@ -258,7 +288,16 @@
                         <a class="nav-link" href="blog.html">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                            <span id="theme-text">Dark</span>
+                        </button>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.html">Dashboard</a>
@@ -269,7 +308,7 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="section pt-5">
+    <section class="section" style="padding-top: 120px;">
         <div class="container">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold mb-3">Find Your Perfect Venue</h1>
@@ -659,12 +698,45 @@
     <!-- Footer -->
     <footer class="bg-black text-center py-4">
         <div class="container">
-            <p class="mb-0">&copy; 2024 Luxury Venue Booking. All rights reserved.</p>
-            <div class="mt-3">
-                <a href="#" class="text-gold me-3"><i class="fab fa-facebook fa-lg"></i></a>
-                <a href="#" class="text-gold me-3"><i class="fab fa-instagram fa-lg"></i></a>
-                <a href="#" class="text-gold me-3"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="#" class="text-gold"><i class="fab fa-linkedin fa-lg"></i></a>
+            <!-- Quick Links -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <h6 class="text-gold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event Packages</a></li>
+                        <li class="mb-2"><a href="gallery.html" class="text-white text-decoration-none">Gallery</a></li>
+                        <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-gold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="login.html" class="text-white text-decoration-none">Login</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a></li>
+                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-gold mb-3">Contact Info</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i>+1 (234) 567-890</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2 text-gold"></i>info@luxuryvenues.com</li>
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2 text-gold"></i>New York, NY</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright and Social -->
+            <div class="border-top border-secondary pt-3">
+                <p class="mb-3">&copy; 2026 Luxury Venue Booking. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
             </div>
         </div>
     </footer>
@@ -814,7 +886,37 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeFilters();
             initializeWishlist();
+            
+            // Theme Toggle Functionality
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light';
+            }
         });
+        
+        // Theme Toggle Function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (html.getAttribute('data-theme') === 'light') {
+                html.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light';
+                localStorage.setItem('theme', 'light');
+            }
+        }
     </script>
 </body>
 </html>
