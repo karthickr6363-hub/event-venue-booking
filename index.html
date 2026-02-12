@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxury Venue Booking - Book Beautiful Spaces for Unforgettable Moments</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <style>
         .hero {
             background: linear-gradient(135deg, #0B0F14 0%, #1A1F2E 100%);
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -40,41 +43,50 @@
             opacity: 0.2;
             z-index: 1;
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
         }
-        
+
         .hero-title {
-            opacity: 0;
-            transform: translateY(30px);
+            color: #F6F7F9 !important;
+            /* Force light color for dark background */
+            background: linear-gradient(135deg, #F6F7F9 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 1 !important;
+            /* Ensure visibility for debugging */
+            transform: translateY(0) !important;
             transition: all 1s ease-out;
         }
-        
+
         .hero-subtitle {
-            opacity: 0;
-            transform: translateY(20px);
+            color: #F6F7F9 !important;
+            opacity: 0.9 !important;
+            transform: translateY(0) !important;
             transition: all 1s ease-out 0.3s;
         }
-        
+
         .hero-buttons {
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
             transition: all 1s ease-out 0.6s;
         }
-        
+
         .venue-finder {
-            background: rgba(26, 31, 46, 0.9);
+            background: var(--black-light);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: var(--shadow-xl);
         }
-        
+
         .featured-venue {
             position: relative;
             overflow: hidden;
         }
-        
+
         .featured-venue::before {
             content: '';
             position: absolute;
@@ -85,27 +97,27 @@
             background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
             transition: left 0.5s ease;
         }
-        
+
         .featured-venue:hover::before {
             left: 100%;
         }
-        
+
         .testimonial-card {
             background: var(--black-light);
             border-left: 4px solid var(--royal-gold);
         }
-        
+
         .partner-logo {
             filter: grayscale(100%);
             opacity: 0.6;
             transition: all 0.3s ease;
         }
-        
+
         .partner-logo:hover {
             filter: grayscale(0%);
             opacity: 1;
         }
-        
+
         .cta-banner {
             background: linear-gradient(135deg, var(--midnight-black) 0%, var(--black-light) 100%);
             border-top: 2px solid var(--royal-gold);
@@ -113,6 +125,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -126,7 +139,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle active" href="#" id="homeDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Home
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="homeDropdown">
@@ -150,7 +164,7 @@
                         <a class="nav-link" href="blog.html">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="contact.html">Contact</a>
+                        <a class="nav-link" href="contact.html">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-primary" href="login.html">Login</a>
@@ -201,7 +215,7 @@
                     Smart Venue Finder
                 </h2>
                 <form id="venueFinderForm" class="row g-3">
-                    <div class="col-md-3">
+                    <div class="col-lg-3 col-md-6">
                         <label class="form-label">Location</label>
                         <select class="form-control">
                             <option value="">All Locations</option>
@@ -212,7 +226,7 @@
                             <option value="las-vegas">Las Vegas</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-lg-3 col-md-6">
                         <label class="form-label">Event Type</label>
                         <select class="form-control">
                             <option value="">All Events</option>
@@ -222,11 +236,11 @@
                             <option value="conference">Conference</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-lg-2 col-md-4">
                         <label class="form-label">Guest Count</label>
                         <input type="number" class="form-control" placeholder="50-500">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-lg-2 col-md-4">
                         <label class="form-label">Budget Range</label>
                         <select class="form-control">
                             <option value="">Any Budget</option>
@@ -236,7 +250,7 @@
                             <option value="50000">$50,000+</option>
                         </select>
                     </div>
-                    <div class="col-md-2 d-flex align-items-end">
+                    <div class="col-lg-2 col-md-4 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-search me-2"></i>Search
                         </button>
@@ -252,9 +266,11 @@
             <h2 class="section-title">Featured Venues</h2>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card venue-card h-100" data-location="new-york" data-event-types="wedding,corporate" data-capacity="300" data-price="15000">
+                    <div class="card venue-card h-100" data-location="new-york" data-event-types="wedding,corporate"
+                        data-capacity="300" data-price="15000">
                         <div class="position-relative">
-                            <img src="https://picsum.photos/seed/venue1/400/250.jpg" class="card-img-top" alt="Grand Ballroom">
+                            <img src="https://picsum.photos/seed/venue1/400/250.jpg" class="card-img-top"
+                                alt="Grand Ballroom">
                             <button class="wishlist-btn" data-venue-id="1">
                                 <i class="far fa-heart"></i>
                             </button>
@@ -275,9 +291,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card venue-card h-100" data-location="los-angeles" data-event-types="party,conference" data-capacity="200" data-price="12000">
+                    <div class="card venue-card h-100" data-location="los-angeles" data-event-types="party,conference"
+                        data-capacity="200" data-price="12000">
                         <div class="position-relative">
-                            <img src="https://picsum.photos/seed/venue2/400/250.jpg" class="card-img-top" alt="Rooftop Garden">
+                            <img src="https://picsum.photos/seed/venue2/400/250.jpg" class="card-img-top"
+                                alt="Rooftop Garden">
                             <button class="wishlist-btn" data-venue-id="2">
                                 <i class="far fa-heart"></i>
                             </button>
@@ -298,9 +316,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card venue-card h-100" data-location="chicago" data-event-types="wedding,party" data-capacity="250" data-price="10000">
+                    <div class="card venue-card h-100" data-location="chicago" data-event-types="wedding,party"
+                        data-capacity="250" data-price="10000">
                         <div class="position-relative">
-                            <img src="https://picsum.photos/seed/venue3/400/250.jpg" class="card-img-top" alt="Historic Mansion">
+                            <img src="https://picsum.photos/seed/venue3/400/250.jpg" class="card-img-top"
+                                alt="Historic Mansion">
                             <button class="wishlist-btn" data-venue-id="3">
                                 <i class="far fa-heart"></i>
                             </button>
@@ -380,9 +400,11 @@
                             <i class="fas fa-star text-gold"></i>
                             <i class="fas fa-star text-gold"></i>
                         </div>
-                        <p class="mb-3">"Absolutely stunning venue! The team made our wedding day perfect. Every detail was handled with such professionalism and care."</p>
+                        <p class="mb-3">"Absolutely stunning venue! The team made our wedding day perfect. Every detail
+                            was handled with such professionalism and care."</p>
                         <div class="d-flex align-items-center justify-content-center text-center">
-                            <img src="https://picsum.photos/seed/client1/50/50.jpg" class="rounded-circle me-3" alt="Client">
+                            <img src="https://picsum.photos/seed/client1/50/50.jpg" class="rounded-circle me-3"
+                                alt="Client">
                             <div>
                                 <h6 class="mb-0">Sarah Johnson</h6>
                                 <small class="text-muted">Wedding Client</small>
@@ -399,18 +421,21 @@
                             <i class="fas fa-star text-gold"></i>
                             <i class="fas fa-star text-gold"></i>
                         </div>
-                        <p class="mb-3">"Our corporate gala was a huge success! The venue's AV capabilities and service exceeded all expectations."</p>
+                        <p class="mb-3">"Our corporate gala was a huge success! The venue's AV capabilities and service
+                            exceeded all expectations."</p>
                         <div class="d-flex align-items-center justify-content-center text-center">
-                            <img src="https://picsum.photos/seed/client2/50/50.jpg" class="rounded-circle me-3" alt="Client">
+                            <img src="https://picsum.photos/seed/client2/50/50.jpg" class="rounded-circle me-3"
+                                alt="Client">
                             <div>
                                 <h6 class="mb-0">Michael Chen</h6>
                                 <small class="text-muted">Corporate Event</small>
-                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+        </div>
         </div>
     </section>
 
@@ -419,23 +444,35 @@
         <div class="container">
             <h2 class="section-title">Trusted Partners</h2>
             <div class="row justify-content-center">
-                <div class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://picsum.photos/seed/partner1/150/80.jpg" class="partner-logo img-fluid" alt="Partner">
+                <div
+                    class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://picsum.photos/seed/partner1/150/80.jpg" class="partner-logo img-fluid"
+                        alt="Partner">
                 </div>
-                <div class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://picsum.photos/seed/partner2/150/80.jpg" class="partner-logo img-fluid" alt="Partner">
+                <div
+                    class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://picsum.photos/seed/partner2/150/80.jpg" class="partner-logo img-fluid"
+                        alt="Partner">
                 </div>
-                <div class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://picsum.photos/seed/partner3/150/80.jpg" class="partner-logo img-fluid" alt="Partner">
+                <div
+                    class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://picsum.photos/seed/partner3/150/80.jpg" class="partner-logo img-fluid"
+                        alt="Partner">
                 </div>
-                <div class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://picsum.photos/seed/partner4/150/80.jpg" class="partner-logo img-fluid" alt="Partner">
+                <div
+                    class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://picsum.photos/seed/partner4/150/80.jpg" class="partner-logo img-fluid"
+                        alt="Partner">
                 </div>
-                <div class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://picsum.photos/seed/partner5/150/80.jpg" class="partner-logo img-fluid" alt="Partner">
+                <div
+                    class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://picsum.photos/seed/partner5/150/80.jpg" class="partner-logo img-fluid"
+                        alt="Partner">
                 </div>
-                <div class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://picsum.photos/seed/partner6/150/80.jpg" class="partner-logo img-fluid" alt="Partner">
+                <div
+                    class="col-md-2 col-4 text-center mb-4 d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://picsum.photos/seed/partner6/150/80.jpg" class="partner-logo img-fluid"
+                        alt="Partner">
                 </div>
             </div>
         </div>
@@ -458,27 +495,37 @@
     <!-- Footer -->
     <footer class="bg-black text-center py-4">
         <div class="container">
-            <!-- Quick Links -->
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <!-- Brand and Quick Links -->
+            <div class="row mb-4 text-center text-md-start">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-gold mb-3"><i class="fas fa-crown me-2"></i>Luxury Venues</h5>
+                    <p class="text-white-50 small">Discover exclusive spaces for your most memorable occasions. We bring
+                        luxury and elegance to every event.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a></li>
-                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event Packages</a></li>
+                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a>
+                        </li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event
+                                Packages</a></li>
                         <li class="mb-2"><a href="gallery.html" class="text-white text-decoration-none">Gallery</a></li>
                         <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none">Blog</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Services</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a>
+                        </li>
                         <li class="mb-2"><a href="login.html" class="text-white text-decoration-none">Login</a></li>
-                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a></li>
-                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a>
+                        </li>
+                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6 class="text-gold mb-3">Contact Info</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i>+1 (234) 567-890</li>
@@ -487,7 +534,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Copyright and Social -->
             <div class="border-top border-secondary pt-3">
                 <p class="mb-3">&copy; 2026 Luxury Venue Booking. All rights reserved.</p>
@@ -503,40 +550,12 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
     <script>
-        // Theme Toggle Functionality
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            if (html.getAttribute('data-theme') === 'light') {
-                html.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-                themeText.textContent = 'Dark';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-        
-        // Load saved theme on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            if (savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
-            }
-        });
+        // Trigger additional index-specific logic if any
     </script>
 </body>
+
 </html>

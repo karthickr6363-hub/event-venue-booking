@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events - Upcoming Events & Special Occasions</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <style>
         .events-hero {
             background: linear-gradient(135deg, var(--midnight-black) 0%, var(--black-light) 100%);
@@ -29,7 +32,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .events-hero::before {
             content: '';
             position: absolute;
@@ -40,12 +43,12 @@
             background: url('https://picsum.photos/seed/events/1920/600.jpg') center/cover;
             opacity: 0.15;
         }
-        
+
         .events-hero-content {
             position: relative;
             z-index: 2;
         }
-        
+
         .event-card {
             background: var(--black-light);
             border-radius: var(--radius-lg);
@@ -55,29 +58,29 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .event-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
         }
-        
+
         .event-image-container {
             position: relative;
             height: 200px;
             overflow: hidden;
         }
-        
+
         .event-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .event-card:hover .event-image {
             transform: scale(1.1);
         }
-        
+
         .event-date {
             position: absolute;
             top: 1rem;
@@ -90,7 +93,7 @@
             text-align: center;
             z-index: 2;
         }
-        
+
         .event-badge {
             position: absolute;
             top: 1rem;
@@ -102,35 +105,35 @@
             font-size: 0.875rem;
             z-index: 2;
         }
-        
+
         .event-content {
             padding: 1.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-        
+
         .event-title {
             color: var(--pearl-white);
             font-family: var(--font-primary);
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
         }
-        
+
         .event-location {
             color: var(--pearl-white);
             opacity: 0.7;
             font-size: 0.875rem;
             margin-bottom: 1rem;
         }
-        
+
         .event-description {
             color: var(--pearl-white);
             opacity: 0.8;
             margin-bottom: 1rem;
             flex-grow: 1;
         }
-        
+
         .event-meta {
             display: flex;
             justify-content: space-between;
@@ -139,7 +142,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-        
+
         .event-meta-item {
             display: flex;
             align-items: center;
@@ -147,18 +150,18 @@
             opacity: 0.7;
             font-size: 0.875rem;
         }
-        
+
         .event-meta-item i {
             color: var(--royal-gold);
             margin-right: 0.5rem;
         }
-        
+
         .event-actions {
             display: flex;
             gap: 0.75rem;
             margin-top: auto;
         }
-        
+
         .filter-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -166,7 +169,7 @@
             margin-bottom: 2rem;
             justify-content: center;
         }
-        
+
         .filter-tab {
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
@@ -176,34 +179,59 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .filter-tab:hover,
         .filter-tab.active {
             background: var(--royal-gold);
             color: var(--midnight-black);
             border-color: var(--royal-gold);
         }
-        
+
         .calendar-section {
             background: var(--black-light);
             border-radius: var(--radius-lg);
             padding: 2rem;
             margin: 3rem 0;
+            overflow: hidden;
         }
-        
+
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            gap: 1rem;
         }
-        
+
+        .calendar-container {
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--royal-gold) var(--black-lighter);
+        }
+
+        .calendar-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .calendar-container::-webkit-scrollbar-track {
+            background: var(--black-lighter);
+            border-radius: 3px;
+        }
+
+        .calendar-container::-webkit-scrollbar-thumb {
+            background: var(--royal-gold);
+            border-radius: 3px;
+        }
+
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 0.5rem;
+            min-width: 700px;
         }
-        
+
         .calendar-day {
             background: var(--black-lighter);
             border: 1px solid transparent;
@@ -219,37 +247,75 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .calendar-day:hover {
             border-color: var(--royal-gold);
             background: rgba(212, 175, 55, 0.1);
         }
-        
+
         .calendar-day.has-event {
             background: var(--royal-gold);
             color: var(--midnight-black);
             font-weight: 600;
         }
-        
+
         .calendar-day-number {
             font-size: 1.1rem;
             font-weight: 600;
         }
-        
+
         .calendar-day-events {
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
-        
+
+        .calendar-footer {
+            display: none;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .scroll-btn {
+            background: var(--black-lighter);
+            border: 1px solid var(--royal-gold);
+            color: var(--royal-gold);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scroll-btn:hover {
+            background: var(--royal-gold);
+            color: var(--midnight-black);
+        }
+
         @media (max-width: 768px) {
             .event-card {
                 margin-bottom: 1.5rem;
             }
-            
-            .calendar-grid {
-                gap: 0.25rem;
+
+            .calendar-header {
+                flex-direction: column;
+                text-align: center;
             }
-            
+
+            .calendar-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .calendar-footer {
+                display: flex;
+            }
+
+            .calendar-grid {
+                min-width: 600px;
+            }
+
             .calendar-day {
                 padding: 0.5rem;
                 min-height: 60px;
@@ -258,6 +324,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -271,7 +338,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Home
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="homeDropdown">
@@ -339,7 +407,8 @@
                 <div class="col-lg-4 col-md-6 event-item" data-category="wedding">
                     <div class="event-card">
                         <div class="event-image-container">
-                            <img src="https://picsum.photos/seed/wedding1/400/200.jpg" alt="Luxury Wedding" class="event-image">
+                            <img src="https://picsum.photos/seed/wedding1/400/200.jpg" alt="Luxury Wedding"
+                                class="event-image">
                             <div class="event-date">
                                 <div>DEC</div>
                                 <div>15</div>
@@ -352,7 +421,8 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>Grand Ballroom, New York
                             </p>
                             <p class="event-description">
-                                An elegant wedding reception featuring gourmet catering, live entertainment, and stunning decorations for the perfect celebration.
+                                An elegant wedding reception featuring gourmet catering, live entertainment, and
+                                stunning decorations for the perfect celebration.
                             </p>
                             <div class="event-meta">
                                 <div class="event-meta-item">
@@ -374,7 +444,8 @@
                 <div class="col-lg-4 col-md-6 event-item" data-category="corporate">
                     <div class="event-card">
                         <div class="event-image-container">
-                            <img src="https://picsum.photos/seed/corporate1/400/200.jpg" alt="Corporate Gala" class="event-image">
+                            <img src="https://picsum.photos/seed/corporate1/400/200.jpg" alt="Corporate Gala"
+                                class="event-image">
                             <div class="event-date">
                                 <div>DEC</div>
                                 <div>18</div>
@@ -386,7 +457,8 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>Rooftop Garden, LA
                             </p>
                             <p class="event-description">
-                                Prestigious corporate gala dinner with keynote speakers, networking opportunities, and premium entertainment.
+                                Prestigious corporate gala dinner with keynote speakers, networking opportunities, and
+                                premium entertainment.
                             </p>
                             <div class="event-meta">
                                 <div class="event-meta-item">
@@ -408,7 +480,8 @@
                 <div class="col-lg-4 col-md-6 event-item" data-category="party">
                     <div class="event-card">
                         <div class="event-image-container">
-                            <img src="https://picsum.photos/seed/party1/400/200.jpg" alt="New Year Party" class="event-image">
+                            <img src="https://picsum.photos/seed/party1/400/200.jpg" alt="New Year Party"
+                                class="event-image">
                             <div class="event-date">
                                 <div>DEC</div>
                                 <div>31</div>
@@ -421,7 +494,8 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>Beach Resort, Miami
                             </p>
                             <p class="event-description">
-                                Spectacular New Year's celebration with live DJ, fireworks, champagne toast, and midnight countdown.
+                                Spectacular New Year's celebration with live DJ, fireworks, champagne toast, and
+                                midnight countdown.
                             </p>
                             <div class="event-meta">
                                 <div class="event-meta-item">
@@ -443,7 +517,8 @@
                 <div class="col-lg-4 col-md-6 event-item" data-category="conference">
                     <div class="event-card">
                         <div class="event-image-container">
-                            <img src="https://picsum.photos/seed/conference1/400/200.jpg" alt="Tech Conference" class="event-image">
+                            <img src="https://picsum.photos/seed/conference1/400/200.jpg" alt="Tech Conference"
+                                class="event-image">
                             <div class="event-date">
                                 <div>JAN</div>
                                 <div>10</div>
@@ -455,7 +530,8 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>Convention Center, SF
                             </p>
                             <p class="event-description">
-                                Premier technology conference featuring industry leaders, workshops, and networking sessions.
+                                Premier technology conference featuring industry leaders, workshops, and networking
+                                sessions.
                             </p>
                             <div class="event-meta">
                                 <div class="event-meta-item">
@@ -477,7 +553,8 @@
                 <div class="col-lg-4 col-md-6 event-item" data-category="wedding">
                     <div class="event-card">
                         <div class="event-image-container">
-                            <img src="https://picsum.photos/seed/wedding2/400/200.jpg" alt="Garden Wedding" class="event-image">
+                            <img src="https://picsum.photos/seed/wedding2/400/200.jpg" alt="Garden Wedding"
+                                class="event-image">
                             <div class="event-date">
                                 <div>JAN</div>
                                 <div>20</div>
@@ -489,7 +566,8 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>Botanical Garden, Chicago
                             </p>
                             <p class="event-description">
-                                Romantic outdoor wedding ceremony with beautiful garden setting, floral arrangements, and natural lighting.
+                                Romantic outdoor wedding ceremony with beautiful garden setting, floral arrangements,
+                                and natural lighting.
                             </p>
                             <div class="event-meta">
                                 <div class="event-meta-item">
@@ -511,7 +589,8 @@
                 <div class="col-lg-4 col-md-6 event-item" data-category="corporate">
                     <div class="event-card">
                         <div class="event-image-container">
-                            <img src="https://picsum.photos/seed/corporate2/400/200.jpg" alt="Product Launch" class="event-image">
+                            <img src="https://picsum.photos/seed/corporate2/400/200.jpg" alt="Product Launch"
+                                class="event-image">
                             <div class="event-date">
                                 <div>FEB</div>
                                 <div>5</div>
@@ -524,7 +603,8 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>Art Gallery, NYC
                             </p>
                             <p class="event-description">
-                                Exclusive product launch presentation with media coverage, live demonstrations, and cocktail reception.
+                                Exclusive product launch presentation with media coverage, live demonstrations, and
+                                cocktail reception.
                             </p>
                             <div class="event-meta">
                                 <div class="event-meta-item">
@@ -561,8 +641,19 @@
                         </button>
                     </div>
                 </div>
-                <div class="calendar-grid" id="calendarGrid">
-                    <!-- Calendar days will be generated by JavaScript -->
+                <div class="calendar-container" id="calendarContainer">
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                </div>
+                <!-- Scroll Buttons for Mobile -->
+                <div class="calendar-footer">
+                    <button class="scroll-btn" onclick="scrollCalendar('left')">
+                        <i class="fas fa-arrow-left"></i> Scroll Left
+                    </button>
+                    <button class="scroll-btn" onclick="scrollCalendar('right')">
+                        Scroll Right <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -571,27 +662,37 @@
     <!-- Footer -->
     <footer class="bg-black text-center py-4">
         <div class="container">
-            <!-- Quick Links -->
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <!-- Brand and Quick Links -->
+            <div class="row mb-4 text-center text-md-start">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-gold mb-3"><i class="fas fa-crown me-2"></i>Luxury Venues</h5>
+                    <p class="text-white-50 small">Discover exclusive spaces for your most memorable occasions. We bring
+                        luxury and elegance to every event.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
-                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a></li>
-                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event Packages</a></li>
+                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a>
+                        </li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event
+                                Packages</a></li>
                         <li class="mb-2"><a href="gallery.html" class="text-white text-decoration-none">Gallery</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Services</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a>
+                        </li>
                         <li class="mb-2"><a href="login.html" class="text-white text-decoration-none">Login</a></li>
-                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a></li>
-                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a>
+                        </li>
+                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6 class="text-gold mb-3">Contact Info</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i>+1 (234) 567-890</li>
@@ -600,7 +701,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Copyright and Social -->
             <div class="border-top border-secondary pt-3">
                 <p class="mb-3">&copy; 2026 Luxury Venue Booking. All rights reserved.</p>
@@ -618,43 +719,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/main.js"></script>
-    
+
     <script>
-        // Theme Toggle Functionality
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            document.getElementById('theme-icon').className = 'fas fa-sun';
-            document.getElementById('theme-text').textContent = 'Light';
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            if (html.getAttribute('data-theme') === 'light') {
-                html.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-                themeText.textContent = 'Dark';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
         // Event Filtering
         function filterEvents(category) {
             const tabs = document.querySelectorAll('.filter-tab');
             const events = document.querySelectorAll('.event-item');
-            
+
             // Update active tab
             tabs.forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
-            
+
             // Filter events
             events.forEach(event => {
                 if (category === 'all' || event.dataset.category === category) {
@@ -674,24 +749,24 @@
             const firstDay = new Date(currentYear, currentMonth, 1).getDay();
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
             const calendarGrid = document.getElementById('calendarGrid');
-            
+
             // Update month display
             document.getElementById('currentMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
-            
+
             // Clear calendar
             calendarGrid.innerHTML = '';
-            
+
             // Add empty cells for days before month starts
             for (let i = 0; i < firstDay; i++) {
                 calendarGrid.innerHTML += '<div></div>';
             }
-            
+
             // Add days of the month
             for (let day = 1; day <= daysInMonth; day++) {
                 const hasEvent = Math.random() > 0.7; // Random events for demo
                 const eventClass = hasEvent ? 'has-event' : '';
                 const eventText = hasEvent ? '<div class="calendar-day-events">Events</div>' : '';
-                
+
                 calendarGrid.innerHTML += `
                     <div class="calendar-day ${eventClass}">
                         <div class="calendar-day-number">${day}</div>
@@ -719,10 +794,21 @@
             generateCalendar();
         }
 
+        function scrollCalendar(direction) {
+            const container = document.getElementById('calendarContainer');
+            const scrollAmount = 200;
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
         // Initialize calendar on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             generateCalendar();
         });
     </script>
 </body>
+
 </html>

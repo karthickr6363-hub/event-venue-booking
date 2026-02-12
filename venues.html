@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venues - Find Your Perfect Event Space</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <style>
         .filter-sidebar {
             background: var(--black-light);
@@ -31,32 +34,32 @@
             top: 100px;
             height: fit-content;
         }
-        
+
         .filter-group {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid var(--black-lighter);
         }
-        
+
         .filter-group:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
-        
+
         .filter-title {
             color: var(--royal-gold);
             font-weight: 600;
             margin-bottom: 0.75rem;
             font-size: 1.1rem;
         }
-        
+
         .venue-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
             gap: 2rem;
         }
-        
+
         .venue-card {
             background: var(--black-light);
             border-radius: var(--radius-lg);
@@ -64,29 +67,29 @@
             transition: all 0.3s ease;
             position: relative;
         }
-        
+
         .venue-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
         }
-        
+
         .venue-image-container {
             position: relative;
             height: 250px;
             overflow: hidden;
         }
-        
+
         .venue-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .venue-card:hover .venue-image {
             transform: scale(1.1);
         }
-        
+
         .venue-badge {
             position: absolute;
             top: 1rem;
@@ -98,7 +101,7 @@
             font-weight: 600;
             font-size: 0.875rem;
         }
-        
+
         .venue-rating {
             position: absolute;
             top: 1rem;
@@ -112,7 +115,7 @@
             align-items: center;
             gap: 0.25rem;
         }
-        
+
         .wishlist-btn {
             position: absolute;
             top: 1rem;
@@ -125,17 +128,17 @@
             cursor: pointer;
             transition: var(--transition-fast);
         }
-        
+
         .wishlist-btn:hover {
             color: var(--royal-gold);
             transform: scale(1.2);
         }
-        
+
         .venue-content {
             padding: 1.5rem;
             text-align: center;
         }
-        
+
         .venue-title {
             color: var(--pearl-white);
             font-family: var(--font-primary);
@@ -143,7 +146,7 @@
             margin-bottom: 0.5rem;
             text-align: center;
         }
-        
+
         .venue-location {
             color: var(--pearl-white);
             opacity: 0.7;
@@ -151,7 +154,7 @@
             margin-bottom: 1rem;
             text-align: center;
         }
-        
+
         .venue-price {
             color: var(--royal-gold);
             font-size: 1.5rem;
@@ -159,7 +162,7 @@
             margin-bottom: 1rem;
             text-align: center;
         }
-        
+
         .venue-features {
             display: flex;
             flex-wrap: wrap;
@@ -167,7 +170,7 @@
             margin-bottom: 1rem;
             justify-content: center;
         }
-        
+
         .venue-feature {
             background: var(--black-lighter);
             color: var(--pearl-white);
@@ -175,18 +178,18 @@
             border-radius: var(--radius-sm);
             font-size: 0.75rem;
         }
-        
+
         .venue-actions {
             display: flex;
             gap: 0.75rem;
         }
-        
+
         .view-toggle {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .view-btn {
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
@@ -196,39 +199,39 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .view-btn.active,
         .view-btn:hover {
-            background: var(--royal-gold);
-            color: var(--midnight-black);
-            border-color: var(--royal-gold);
+            background: var(--royal-gold) !important;
+            color: #0B0F14 !important;
+            border-color: var(--royal-gold) !important;
         }
-        
+
         .map-container {
             background: var(--black-light);
             border-radius: var(--radius-lg);
             height: 600px;
             display: none;
         }
-        
+
         .map-container.active {
             display: block;
         }
-        
+
         .price-range-slider {
             margin: 1rem 0;
         }
-        
+
         .checkbox-custom {
             accent-color: var(--royal-gold);
         }
-        
+
         .results-count {
             color: var(--pearl-white);
             font-size: 1.1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0;
         }
-        
+
         .sort-dropdown {
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
@@ -236,7 +239,7 @@
             border-radius: var(--radius-md);
             padding: 0.5rem 1rem;
         }
-        
+
         .loading-skeleton {
             background: linear-gradient(90deg, var(--black-light) 25%, var(--black-lighter) 50%, var(--black-light) 75%);
             background-size: 200% 100%;
@@ -244,13 +247,59 @@
             border-radius: var(--radius-lg);
             height: 400px;
         }
-        
+
+        @media (max-width: 576px) {
+            .toolbar-container {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 1rem;
+            }
+
+            .toolbar-options {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            .sort-dropdown {
+                width: 100%;
+            }
+        }
+
         @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+            0% {
+                background-position: -1000px 0;
+            }
+
+        }
+
+        @media (max-width: 576px) {
+            .toolbar-container {
+                flex-direction: column !important;
+                gap: 1.5rem;
+                align-items: center !important;
+            }
+
+            .toolbar-options {
+                flex-direction: column !important;
+                gap: 1rem !important;
+                width: 100%;
+                align-items: center !important;
+            }
+
+            .results-count {
+                margin-bottom: 0 !important;
+                font-size: 1rem;
+            }
+
+            .sort-dropdown {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -264,7 +313,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Home
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="homeDropdown">
@@ -327,7 +377,7 @@
                         <h5 class="filter-title">
                             <i class="fas fa-filter me-2"></i>Filters
                         </h5>
-                        
+
                         <!-- Location Filter -->
                         <div class="filter-group">
                             <label class="form-label">Location</label>
@@ -341,36 +391,40 @@
                                 <option value="san-francisco">San Francisco</option>
                             </select>
                         </div>
-                        
+
                         <!-- Event Type Filter -->
                         <div class="filter-group">
                             <label class="form-label">Event Type</label>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="wedding" id="weddingCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="wedding"
+                                    id="weddingCheck">
                                 <label class="form-check-label" for="weddingCheck">
                                     Wedding
                                 </label>
                             </div>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="corporate" id="corporateCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="corporate"
+                                    id="corporateCheck">
                                 <label class="form-check-label" for="corporateCheck">
                                     Corporate
                                 </label>
                             </div>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="party" id="partyCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="party"
+                                    id="partyCheck">
                                 <label class="form-check-label" for="partyCheck">
                                     Party
                                 </label>
                             </div>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="conference" id="conferenceCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="conference"
+                                    id="conferenceCheck">
                                 <label class="form-check-label" for="conferenceCheck">
                                     Conference
                                 </label>
                             </div>
                         </div>
-                        
+
                         <!-- Capacity Filter -->
                         <div class="filter-group">
                             <label class="form-label">Guest Capacity</label>
@@ -384,12 +438,13 @@
                                 <option value="1000">500+ guests</option>
                             </select>
                         </div>
-                        
+
                         <!-- Price Range Filter -->
                         <div class="filter-group">
                             <label class="form-label">Price Range</label>
                             <div class="price-range-slider">
-                                <input type="range" class="form-range" min="1000" max="50000" value="25000" id="priceRange">
+                                <input type="range" class="form-range" min="1000" max="50000" value="25000"
+                                    id="priceRange">
                                 <div class="d-flex justify-content-between">
                                     <small>$1,000</small>
                                     <small id="priceValue">$25,000</small>
@@ -397,18 +452,20 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Amenities Filter -->
                         <div class="filter-group">
                             <label class="form-label">Amenities</label>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="parking" id="parkingCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="parking"
+                                    id="parkingCheck">
                                 <label class="form-check-label" for="parkingCheck">
                                     Parking
                                 </label>
                             </div>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="catering" id="cateringCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="catering"
+                                    id="cateringCheck">
                                 <label class="form-check-label" for="cateringCheck">
                                     Catering
                                 </label>
@@ -420,42 +477,46 @@
                                 </label>
                             </div>
                             <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="outdoor" id="outdoorCheck">
+                                <input class="form-check-input checkbox-custom" type="checkbox" value="outdoor"
+                                    id="outdoorCheck">
                                 <label class="form-check-label" for="outdoorCheck">
                                     Outdoor Space
                                 </label>
                             </div>
                         </div>
-                        
+
                         <!-- Rating Filter -->
                         <div class="filter-group">
                             <label class="form-label">Minimum Rating</label>
                             <div class="d-flex gap-1">
-                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(4)">4+ ★</button>
-                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(3)">3+ ★</button>
-                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(2)">2+ ★</button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(4)">4+
+                                    ★</button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(3)">3+
+                                    ★</button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(2)">2+
+                                    ★</button>
                             </div>
                         </div>
-                        
+
                         <button class="btn btn-primary w-100" onclick="applyFilters()">
                             <i class="fas fa-search me-2"></i>Apply Filters
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Venue Listings -->
                 <div class="col-lg-9">
                     <!-- View Toggle and Sort -->
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4 toolbar-container">
                         <div class="view-toggle">
-                            <button class="view-btn active" onclick="toggleView('grid')">
+                            <button id="grid-view-btn" class="view-btn active" onclick="toggleView('grid')">
                                 <i class="fas fa-th"></i> Grid
                             </button>
-                            <button class="view-btn" onclick="toggleView('map')">
+                            <button id="map-view-btn" class="view-btn" onclick="toggleView('map')">
                                 <i class="fas fa-map"></i> Map
                             </button>
                         </div>
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 toolbar-options">
                             <span class="results-count">Showing <span id="resultsCount">12</span> venues</span>
                             <select class="sort-dropdown" id="sortDropdown">
                                 <option value="featured">Featured</option>
@@ -466,13 +527,15 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <!-- Grid View -->
                     <div id="gridView" class="venue-grid">
                         <!-- Venue Card 1 -->
-                        <div class="venue-card" data-location="new-york" data-event-types="wedding,corporate" data-capacity="300" data-price="15000" data-rating="4.8">
+                        <div class="venue-card" data-location="new-york" data-event-types="wedding,corporate"
+                            data-capacity="300" data-price="15000" data-rating="4.8">
                             <div class="venue-image-container">
-                                <img src="https://picsum.photos/seed/venue1/400/250.jpg" alt="Grand Ballroom" class="venue-image">
+                                <img src="https://picsum.photos/seed/venue1/400/250.jpg" alt="Grand Ballroom"
+                                    class="venue-image">
                                 <span class="venue-badge">Featured</span>
                                 <div class="venue-rating">
                                     <i class="fas fa-star text-warning"></i>
@@ -500,11 +563,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Venue Card 2 -->
-                        <div class="venue-card" data-location="los-angeles" data-event-types="party,conference" data-capacity="200" data-price="12000" data-rating="4.6">
+                        <div class="venue-card" data-location="los-angeles" data-event-types="party,conference"
+                            data-capacity="200" data-price="12000" data-rating="4.6">
                             <div class="venue-image-container">
-                                <img src="https://picsum.photos/seed/venue2/400/250.jpg" alt="Rooftop Garden" class="venue-image">
+                                <img src="https://picsum.photos/seed/venue2/400/250.jpg" alt="Rooftop Garden"
+                                    class="venue-image">
                                 <div class="venue-rating">
                                     <i class="fas fa-star text-warning"></i>
                                     <span>4.6</span>
@@ -531,11 +596,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Venue Card 3 -->
-                        <div class="venue-card" data-location="chicago" data-event-types="wedding,party" data-capacity="250" data-price="10000" data-rating="4.7">
+                        <div class="venue-card" data-location="chicago" data-event-types="wedding,party"
+                            data-capacity="250" data-price="10000" data-rating="4.7">
                             <div class="venue-image-container">
-                                <img src="https://picsum.photos/seed/venue3/400/250.jpg" alt="Historic Mansion" class="venue-image">
+                                <img src="https://picsum.photos/seed/venue3/400/250.jpg" alt="Historic Mansion"
+                                    class="venue-image">
                                 <div class="venue-rating">
                                     <i class="fas fa-star text-warning"></i>
                                     <span>4.7</span>
@@ -562,11 +629,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Venue Card 4 -->
-                        <div class="venue-card" data-location="miami" data-event-types="party,wedding" data-capacity="400" data-price="18000" data-rating="4.9">
+                        <div class="venue-card" data-location="miami" data-event-types="party,wedding"
+                            data-capacity="400" data-price="18000" data-rating="4.9">
                             <div class="venue-image-container">
-                                <img src="https://picsum.photos/seed/venue4/400/250.jpg" alt="Beach Resort" class="venue-image">
+                                <img src="https://picsum.photos/seed/venue4/400/250.jpg" alt="Beach Resort"
+                                    class="venue-image">
                                 <span class="venue-badge">Premium</span>
                                 <div class="venue-rating">
                                     <i class="fas fa-star text-warning"></i>
@@ -594,11 +663,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Venue Card 5 -->
-                        <div class="venue-card" data-location="las-vegas" data-event-types="corporate,conference" data-capacity="500" data-price="25000" data-rating="4.5">
+                        <div class="venue-card" data-location="las-vegas" data-event-types="corporate,conference"
+                            data-capacity="500" data-price="25000" data-rating="4.5">
                             <div class="venue-image-container">
-                                <img src="https://picsum.photos/seed/venue5/400/250.jpg" alt="Casino Ballroom" class="venue-image">
+                                <img src="https://picsum.photos/seed/venue5/400/250.jpg" alt="Casino Ballroom"
+                                    class="venue-image">
                                 <div class="venue-rating">
                                     <i class="fas fa-star text-warning"></i>
                                     <span>4.5</span>
@@ -625,11 +696,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Venue Card 6 -->
-                        <div class="venue-card" data-location="san-francisco" data-event-types="wedding,corporate" data-capacity="150" data-price="8000" data-rating="4.4">
+                        <div class="venue-card" data-location="san-francisco" data-event-types="wedding,corporate"
+                            data-capacity="150" data-price="8000" data-rating="4.4">
                             <div class="venue-image-container">
-                                <img src="https://picsum.photos/seed/venue6/400/250.jpg" alt="Art Gallery" class="venue-image">
+                                <img src="https://picsum.photos/seed/venue6/400/250.jpg" alt="Art Gallery"
+                                    class="venue-image">
                                 <div class="venue-rating">
                                     <i class="fas fa-star text-warning"></i>
                                     <span>4.4</span>
@@ -657,7 +730,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Map View -->
                     <div id="mapView" class="map-container">
                         <div class="d-flex align-items-center justify-content-center h-100">
@@ -669,7 +742,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Pagination -->
                     <nav class="mt-5">
                         <ul class="pagination justify-content-center">
@@ -698,27 +771,36 @@
     <!-- Footer -->
     <footer class="bg-black text-center py-4">
         <div class="container">
-            <!-- Quick Links -->
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <!-- Brand and Quick Links -->
+            <div class="row mb-4 text-center text-md-start">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-gold mb-3"><i class="fas fa-crown me-2"></i>Luxury Venues</h5>
+                    <p class="text-white-50 small">Discover exclusive spaces for your most memorable occasions. We bring
+                        luxury and elegance to every event.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
-                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event Packages</a></li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event
+                                Packages</a></li>
                         <li class="mb-2"><a href="gallery.html" class="text-white text-decoration-none">Gallery</a></li>
                         <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none">Blog</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Services</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a>
+                        </li>
                         <li class="mb-2"><a href="login.html" class="text-white text-decoration-none">Login</a></li>
-                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a></li>
-                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a>
+                        </li>
+                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6 class="text-gold mb-3">Contact Info</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i>+1 (234) 567-890</li>
@@ -727,7 +809,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Copyright and Social -->
             <div class="border-top border-secondary pt-3">
                 <p class="mb-3">&copy; 2026 Luxury Venue Booking. All rights reserved.</p>
@@ -745,35 +827,37 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/main.js"></script>
-    
+
     <script>
         // Price range slider
         const priceRange = document.getElementById('priceRange');
         const priceValue = document.getElementById('priceValue');
-        
-        priceRange.addEventListener('input', function() {
+
+        priceRange.addEventListener('input', function () {
             priceValue.textContent = `$${parseInt(this.value).toLocaleString()}`;
         });
-        
+
         // Toggle view
         function toggleView(view) {
             const gridView = document.getElementById('gridView');
             const mapView = document.getElementById('mapView');
-            const viewBtns = document.querySelectorAll('.view-btn');
-            
-            viewBtns.forEach(btn => btn.classList.remove('active'));
-            
+            const gridBtn = document.getElementById('grid-view-btn');
+            const mapBtn = document.getElementById('map-view-btn');
+
+            gridBtn.classList.remove('active');
+            mapBtn.classList.remove('active');
+
             if (view === 'grid') {
                 gridView.style.display = 'grid';
                 mapView.classList.remove('active');
-                viewBtns[0].classList.add('active');
+                gridBtn.classList.add('active');
             } else {
                 gridView.style.display = 'none';
                 mapView.classList.add('active');
-                viewBtns[1].classList.add('active');
+                mapBtn.classList.add('active');
             }
         }
-        
+
         // Apply filters
         function applyFilters() {
             const venueCards = document.querySelectorAll('.venue-card');
@@ -782,7 +866,7 @@
                 capacity: document.getElementById('capacityFilter').value,
                 priceRange: document.getElementById('priceRange').value
             };
-            
+
             // Get checked event types
             const eventTypes = [];
             document.querySelectorAll('.checkbox-custom:checked').forEach(checkbox => {
@@ -790,16 +874,16 @@
                     eventTypes.push(checkbox.value);
                 }
             });
-            
+
             let visibleCount = 0;
             venueCards.forEach(card => {
                 let show = true;
-                
+
                 // Location filter
                 if (filters.location && card.dataset.location !== filters.location) {
                     show = false;
                 }
-                
+
                 // Event type filter
                 if (eventTypes.length > 0) {
                     const cardEventTypes = card.dataset.eventTypes.split(',');
@@ -808,33 +892,33 @@
                         show = false;
                     }
                 }
-                
+
                 // Capacity filter
                 if (filters.capacity && parseInt(card.dataset.capacity) > parseInt(filters.capacity)) {
                     show = false;
                 }
-                
+
                 // Price filter
                 if (parseInt(card.dataset.price) > parseInt(filters.priceRange)) {
                     show = false;
                 }
-                
+
                 card.style.display = show ? 'block' : 'none';
                 if (show) visibleCount++;
             });
-            
+
             // Update results count
             document.getElementById('resultsCount').textContent = visibleCount;
-            
+
             // Show notification
             showNotification(`Found ${visibleCount} venues matching your criteria`, 'success');
         }
-        
+
         // Set rating filter
         function setRatingFilter(minRating) {
             const venueCards = document.querySelectorAll('.venue-card');
             let visibleCount = 0;
-            
+
             venueCards.forEach(card => {
                 const rating = parseFloat(card.dataset.rating);
                 if (rating >= minRating) {
@@ -844,10 +928,10 @@
                     card.style.display = 'none';
                 }
             });
-            
+
             document.getElementById('resultsCount').textContent = visibleCount;
         }
-        
+
         // Quick book function
         function quickBook(venueId) {
             showNotification(`Quick booking initiated for venue ${venueId}`, 'success');
@@ -856,15 +940,15 @@
                 window.location.href = `venue-detail.html?id=${venueId}#booking`;
             }, 1000);
         }
-        
+
         // Sort functionality
-        document.getElementById('sortDropdown').addEventListener('change', function() {
+        document.getElementById('sortDropdown').addEventListener('change', function () {
             const sortBy = this.value;
             const venueGrid = document.getElementById('gridView');
             const venueCards = Array.from(venueGrid.querySelectorAll('.venue-card'));
-            
+
             venueCards.sort((a, b) => {
-                switch(sortBy) {
+                switch (sortBy) {
                     case 'price-low':
                         return parseInt(a.dataset.price) - parseInt(b.dataset.price);
                     case 'price-high':
@@ -877,46 +961,17 @@
                         return 0;
                 }
             });
-            
+
             // Re-append sorted cards
             venueCards.forEach(card => venueGrid.appendChild(card));
         });
-        
+
         // Initialize filters on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeFilters();
             initializeWishlist();
-            
-            // Theme Toggle Functionality
-            const savedTheme = localStorage.getItem('theme');
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            if (savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
-            }
         });
-        
-        // Theme Toggle Function
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-            
-            if (html.getAttribute('data-theme') === 'light') {
-                html.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-                themeText.textContent = 'Dark';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
-                localStorage.setItem('theme', 'light');
-            }
-        }
     </script>
 </body>
+
 </html>

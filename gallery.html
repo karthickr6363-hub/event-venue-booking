@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - Event Venue Photos & Videos</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <style>
         .gallery-hero {
             background: linear-gradient(135deg, var(--midnight-black) 0%, var(--black-light) 100%);
@@ -29,7 +32,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .gallery-hero::before {
             content: '';
             position: absolute;
@@ -40,19 +43,19 @@
             background: url('https://picsum.photos/seed/galleryhero/1920/600.jpg') center/cover;
             opacity: 0.2;
         }
-        
+
         .gallery-hero-content {
             position: relative;
             z-index: 2;
         }
-        
+
         .gallery-filters {
             background: var(--black-light);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             margin-bottom: 3rem;
         }
-        
+
         .filter-btn {
             background: var(--black-lighter);
             border: 1px solid var(--black-lighter);
@@ -63,21 +66,21 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .filter-btn:hover,
         .filter-btn.active {
             background: var(--royal-gold);
             color: var(--midnight-black);
             border-color: var(--royal-gold);
         }
-        
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
-        
+
         .gallery-item {
             position: relative;
             overflow: hidden;
@@ -86,23 +89,23 @@
             transition: all 0.3s ease;
             background: var(--black-light);
         }
-        
+
         .gallery-item:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
         }
-        
+
         .gallery-item img {
             width: 100%;
             height: 250px;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .gallery-item:hover img {
             transform: scale(1.1);
         }
-        
+
         .gallery-overlay {
             position: absolute;
             top: 0;
@@ -119,34 +122,35 @@
             transition: opacity 0.3s ease;
             text-align: center;
         }
-        
+
         .gallery-item:hover .gallery-overlay {
             opacity: 1;
             background: linear-gradient(to bottom, rgba(11, 15, 20, 0.9) 0%, rgba(11, 15, 20, 0.95) 100%);
         }
-        
+
         .gallery-title {
             color: var(--pearl-white);
             font-weight: 600;
             margin-bottom: 0.25rem;
             text-align: center;
         }
-        
+
         .gallery-category {
             color: var(--royal-gold);
             font-size: 0.875rem;
             text-align: center;
         }
-        
+
         .gallery-video {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
             height: 0;
             overflow: hidden;
             border-radius: var(--radius-lg);
             background: var(--black-light);
         }
-        
+
         .gallery-video iframe {
             position: absolute;
             top: 0;
@@ -155,20 +159,20 @@
             height: 100%;
             border: none;
         }
-        
+
         .video-thumbnail {
             position: relative;
             cursor: pointer;
             overflow: hidden;
             border-radius: var(--radius-lg);
         }
-        
+
         .video-thumbnail img {
             width: 100%;
             height: 250px;
             object-fit: cover;
         }
-        
+
         .play-button {
             position: absolute;
             top: 50%;
@@ -185,12 +189,12 @@
             font-size: 1.5rem;
             transition: all 0.3s ease;
         }
-        
+
         .video-thumbnail:hover .play-button {
             background: var(--royal-gold);
             transform: translate(-50%, -50%) scale(1.1);
         }
-        
+
         /* Lightbox Styles */
         .lightbox {
             display: none;
@@ -205,25 +209,25 @@
             align-items: center;
             animation: fadeIn 0.3s ease;
         }
-        
+
         .lightbox.active {
             display: flex;
         }
-        
+
         .lightbox-content {
             position: relative;
             max-width: 90%;
             max-height: 90%;
             animation: slideIn 0.3s ease;
         }
-        
+
         .lightbox-img {
             max-width: 100%;
             max-height: 80vh;
             border-radius: var(--radius-lg);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-        
+
         .lightbox-close {
             position: absolute;
             top: -40px;
@@ -233,11 +237,11 @@
             cursor: pointer;
             transition: color 0.3s ease;
         }
-        
+
         .lightbox-close:hover {
             color: var(--royal-gold);
         }
-        
+
         .lightbox-nav {
             position: absolute;
             top: 50%;
@@ -250,20 +254,20 @@
             background: rgba(0, 0, 0, 0.5);
             border-radius: var(--radius-md);
         }
-        
+
         .lightbox-nav:hover {
             color: var(--royal-gold);
             background: rgba(212, 175, 55, 0.2);
         }
-        
+
         .lightbox-prev {
             left: -60px;
         }
-        
+
         .lightbox-next {
             right: -60px;
         }
-        
+
         .lightbox-counter {
             position: absolute;
             bottom: -40px;
@@ -272,30 +276,30 @@
             color: var(--pearl-white);
             font-size: 1rem;
         }
-        
+
         /* Masonry Layout for Special Gallery */
         .masonry-gallery {
             column-count: 3;
             column-gap: 1.5rem;
             margin-bottom: 3rem;
         }
-        
+
         .masonry-item {
             break-inside: avoid;
             margin-bottom: 1.5rem;
         }
-        
+
         .masonry-item img {
             width: 100%;
             border-radius: var(--radius-lg);
             transition: all 0.3s ease;
         }
-        
+
         .masonry-item:hover img {
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
         }
-        
+
         /* Featured Gallery Section */
         .featured-gallery {
             background: var(--black-light);
@@ -303,7 +307,7 @@
             padding: 3rem;
             margin-bottom: 3rem;
         }
-        
+
         .featured-main {
             position: relative;
             height: 500px;
@@ -311,19 +315,19 @@
             overflow: hidden;
             margin-bottom: 1.5rem;
         }
-        
+
         .featured-main img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         .featured-thumbnails {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
         }
-        
+
         .featured-thumb {
             position: relative;
             height: 100px;
@@ -332,63 +336,85 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .featured-thumb:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
-        
+
         .featured-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
+        .featured-main .gallery-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-main .gallery-category {
+            font-size: 1.1rem;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         @keyframes slideIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
+
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1rem;
             }
-            
+
             .masonry-gallery {
                 column-count: 2;
             }
-            
+
             .lightbox-nav {
                 font-size: 1.5rem;
                 padding: 0.5rem;
             }
-            
+
             .lightbox-prev {
                 left: 10px;
             }
-            
+
             .lightbox-next {
                 right: 10px;
             }
         }
-        
+
         @media (max-width: 576px) {
             .masonry-gallery {
                 column-count: 1;
             }
-            
+
             .featured-thumbnails {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -402,7 +428,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Home
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="homeDropdown">
@@ -477,26 +504,32 @@
             <h2 class="section-title">Featured Events</h2>
             <div class="featured-gallery">
                 <div class="featured-main">
-                    <img src="https://picsum.photos/seed/featured1/1200/500.jpg" alt="Featured Event" id="featuredMainImage">
+                    <img src="https://picsum.photos/seed/featured1/1200/500.jpg" alt="Featured Event"
+                        id="featuredMainImage">
                     <div class="gallery-overlay">
                         <h4 class="gallery-title">Luxury Wedding Celebration</h4>
                         <p class="gallery-category">Wedding • Grand Ballroom Manhattan</p>
                     </div>
                 </div>
                 <div class="featured-thumbnails">
-                    <div class="featured-thumb" onclick="changeFeaturedImage('https://picsum.photos/seed/featured1/1200/500.jpg')">
+                    <div class="featured-thumb"
+                        onclick="changeFeaturedImage('https://picsum.photos/seed/featured1/1200/500.jpg')">
                         <img src="https://picsum.photos/seed/featured1/150/100.jpg" alt="Event 1">
                     </div>
-                    <div class="featured-thumb" onclick="changeFeaturedImage('https://picsum.photos/seed/featured2/1200/500.jpg')">
+                    <div class="featured-thumb"
+                        onclick="changeFeaturedImage('https://picsum.photos/seed/featured2/1200/500.jpg')">
                         <img src="https://picsum.photos/seed/featured2/150/100.jpg" alt="Event 2">
                     </div>
-                    <div class="featured-thumb" onclick="changeFeaturedImage('https://picsum.photos/seed/featured3/1200/500.jpg')">
+                    <div class="featured-thumb"
+                        onclick="changeFeaturedImage('https://picsum.photos/seed/featured3/1200/500.jpg')">
                         <img src="https://picsum.photos/seed/featured3/150/100.jpg" alt="Event 3">
                     </div>
-                    <div class="featured-thumb" onclick="changeFeaturedImage('https://picsum.photos/seed/featured4/1200/500.jpg')">
+                    <div class="featured-thumb"
+                        onclick="changeFeaturedImage('https://picsum.photos/seed/featured4/1200/500.jpg')">
                         <img src="https://picsum.photos/seed/featured4/150/100.jpg" alt="Event 4">
                     </div>
-                    <div class="featured-thumb" onclick="changeFeaturedImage('https://picsum.photos/seed/featured5/1200/500.jpg')">
+                    <div class="featured-thumb"
+                        onclick="changeFeaturedImage('https://picsum.photos/seed/featured5/1200/500.jpg')">
                         <img src="https://picsum.photos/seed/featured5/150/100.jpg" alt="Event 5">
                     </div>
                 </div>
@@ -517,7 +550,7 @@
                         <p class="gallery-category">Wedding • Historic Mansion</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="weddings" onclick="openLightbox(1)">
                     <img src="https://picsum.photos/seed/wedding2/400/300.jpg" alt="Wedding Reception">
                     <div class="gallery-overlay">
@@ -525,7 +558,7 @@
                         <p class="gallery-category">Wedding • Grand Ballroom</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="weddings" onclick="openLightbox(2)">
                     <img src="https://picsum.photos/seed/wedding3/400/300.jpg" alt="Wedding Couple">
                     <div class="gallery-overlay">
@@ -533,7 +566,7 @@
                         <p class="gallery-category">Wedding • Beach Resort</p>
                     </div>
                 </div>
-                
+
                 <!-- Corporate Gallery Items -->
                 <div class="gallery-item" data-category="corporate" onclick="openLightbox(3)">
                     <img src="https://picsum.photos/seed/corporate1/400/300.jpg" alt="Corporate Gala">
@@ -542,7 +575,7 @@
                         <p class="gallery-category">Corporate • Luxury Casino</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="corporate" onclick="openLightbox(4)">
                     <img src="https://picsum.photos/seed/corporate2/400/300.jpg" alt="Business Conference">
                     <div class="gallery-overlay">
@@ -550,7 +583,7 @@
                         <p class="gallery-category">Corporate • Modern Art Gallery</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="corporate" onclick="openLightbox(5)">
                     <img src="https://picsum.photos/seed/corporate3/400/300.jpg" alt="Product Launch">
                     <div class="gallery-overlay">
@@ -558,7 +591,7 @@
                         <p class="gallery-category">Corporate • Rooftop Garden</p>
                     </div>
                 </div>
-                
+
                 <!-- Party Gallery Items -->
                 <div class="gallery-item" data-category="parties" onclick="openLightbox(6)">
                     <img src="https://picsum.photos/seed/party1/400/300.jpg" alt="Birthday Party">
@@ -567,7 +600,7 @@
                         <p class="gallery-category">Party • Private Venue</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="parties" onclick="openLightbox(7)">
                     <img src="https://picsum.photos/seed/party2/400/300.jpg" alt="Anniversary Party">
                     <div class="gallery-overlay">
@@ -575,7 +608,7 @@
                         <p class="gallery-category">Party • Oceanfront Resort</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="parties" onclick="openLightbox(8)">
                     <img src="https://picsum.photos/seed/party3/400/300.jpg" alt="Cocktail Party">
                     <div class="gallery-overlay">
@@ -583,7 +616,7 @@
                         <p class="gallery-category">Party • Sky Lounge</p>
                     </div>
                 </div>
-                
+
                 <!-- Venue Gallery Items -->
                 <div class="gallery-item" data-category="venues" onclick="openLightbox(9)">
                     <img src="https://picsum.photos/seed/venue1/400/300.jpg" alt="Ballroom">
@@ -592,7 +625,7 @@
                         <p class="gallery-category">Venue • Manhattan</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="venues" onclick="openLightbox(10)">
                     <img src="https://picsum.photos/seed/venue2/400/300.jpg" alt="Garden Setting">
                     <div class="gallery-overlay">
@@ -600,7 +633,7 @@
                         <p class="gallery-category">Venue • Historic Mansion</p>
                     </div>
                 </div>
-                
+
                 <div class="gallery-item" data-category="venues" onclick="openLightbox(11)">
                     <img src="https://picsum.photos/seed/venue3/400/300.jpg" alt="Rooftop View">
                     <div class="gallery-overlay">
@@ -627,7 +660,7 @@
                     <h5 class="mt-3">Dream Wedding Highlights</h5>
                     <p class="text-muted">Beautiful moments from our luxury wedding packages</p>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="video-thumbnail" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
                         <img src="https://picsum.photos/seed/video2/400/250.jpg" alt="Corporate Event Video">
@@ -638,7 +671,7 @@
                     <h5 class="mt-3">Corporate Excellence</h5>
                     <p class="text-muted">Professional corporate events and conferences</p>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="video-thumbnail" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
                         <img src="https://picsum.photos/seed/video3/400/250.jpg" alt="Venue Tour Video">
@@ -659,22 +692,28 @@
             <h2 class="section-title">More Memories</h2>
             <div class="masonry-gallery">
                 <div class="masonry-item">
-                    <img src="https://picsum.photos/seed/masonry1/300/400.jpg" alt="Gallery Image" onclick="openLightbox(12)">
+                    <img src="https://picsum.photos/seed/masonry1/300/400.jpg" alt="Gallery Image"
+                        onclick="openLightbox(12)">
                 </div>
                 <div class="masonry-item">
-                    <img src="https://picsum.photos/seed/masonry2/300/300.jpg" alt="Gallery Image" onclick="openLightbox(13)">
+                    <img src="https://picsum.photos/seed/masonry2/300/300.jpg" alt="Gallery Image"
+                        onclick="openLightbox(13)">
                 </div>
                 <div class="masonry-item">
-                    <img src="https://picsum.photos/seed/masonry3/300/500.jpg" alt="Gallery Image" onclick="openLightbox(14)">
+                    <img src="https://picsum.photos/seed/masonry3/300/500.jpg" alt="Gallery Image"
+                        onclick="openLightbox(14)">
                 </div>
                 <div class="masonry-item">
-                    <img src="https://picsum.photos/seed/masonry4/300/350.jpg" alt="Gallery Image" onclick="openLightbox(15)">
+                    <img src="https://picsum.photos/seed/masonry4/300/350.jpg" alt="Gallery Image"
+                        onclick="openLightbox(15)">
                 </div>
                 <div class="masonry-item">
-                    <img src="https://picsum.photos/seed/masonry5/300/300.jpg" alt="Gallery Image" onclick="openLightbox(16)">
+                    <img src="https://picsum.photos/seed/masonry5/300/300.jpg" alt="Gallery Image"
+                        onclick="openLightbox(16)">
                 </div>
                 <div class="masonry-item">
-                    <img src="https://picsum.photos/seed/masonry6/300/450.jpg" alt="Gallery Image" onclick="openLightbox(17)">
+                    <img src="https://picsum.photos/seed/masonry6/300/450.jpg" alt="Gallery Image"
+                        onclick="openLightbox(17)">
                 </div>
             </div>
         </div>
@@ -716,27 +755,37 @@
     <!-- Footer -->
     <footer class="bg-black text-center py-4">
         <div class="container">
-            <!-- Quick Links -->
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <!-- Brand and Quick Links -->
+            <div class="row mb-4 text-center text-md-start">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-gold mb-3"><i class="fas fa-crown me-2"></i>Luxury Venues</h5>
+                    <p class="text-white-50 small">Discover exclusive spaces for your most memorable occasions. We bring
+                        luxury and elegance to every event.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
-                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a></li>
-                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event Packages</a></li>
+                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a>
+                        </li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event
+                                Packages</a></li>
                         <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none">Blog</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Services</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a>
+                        </li>
                         <li class="mb-2"><a href="login.html" class="text-white text-decoration-none">Login</a></li>
-                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a></li>
-                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a>
+                        </li>
+                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6 class="text-gold mb-3">Contact Info</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i>+1 (234) 567-890</li>
@@ -745,7 +794,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Copyright and Social -->
             <div class="border-top border-secondary pt-3">
                 <p class="mb-3">&copy; 2026 Luxury Venue Booking. All rights reserved.</p>
@@ -763,7 +812,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/main.js"></script>
-    
+
     <script>
         // Gallery images array for lightbox
         const galleryImages = [
@@ -786,18 +835,18 @@
             'https://picsum.photos/seed/masonry5/1200/800.jpg',
             'https://picsum.photos/seed/masonry6/1200/800.jpg'
         ];
-        
+
         let currentImageIndex = 0;
-        
+
         // Filter gallery
         function filterGallery(category) {
             const items = document.querySelectorAll('.gallery-item');
             const buttons = document.querySelectorAll('.filter-btn');
-            
+
             // Update active button
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            
+
             // Filter items
             items.forEach(item => {
                 if (category === 'all') {
@@ -816,50 +865,50 @@
                 }
             });
         }
-        
+
         // Change featured image
         function changeFeaturedImage(src) {
             const mainImage = document.getElementById('featuredMainImage');
             mainImage.src = src;
         }
-        
+
         // Open lightbox
         function openLightbox(index) {
             currentImageIndex = index;
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const counter = document.getElementById('lightboxCounter');
-            
+
             lightboxImg.src = galleryImages[index];
             counter.textContent = `${index + 1} / ${galleryImages.length}`;
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        
+
         // Close lightbox
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
-        
+
         // Navigate lightbox
         function navigateLightbox(direction) {
             currentImageIndex += direction;
-            
+
             if (currentImageIndex < 0) {
                 currentImageIndex = galleryImages.length - 1;
             } else if (currentImageIndex >= galleryImages.length) {
                 currentImageIndex = 0;
             }
-            
+
             const lightboxImg = document.getElementById('lightboxImg');
             const counter = document.getElementById('lightboxCounter');
-            
+
             lightboxImg.src = galleryImages[currentImageIndex];
             counter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
         }
-        
+
         // Play video
         function playVideo(videoUrl) {
             const modal = new bootstrap.Modal(document.getElementById('videoModal'));
@@ -867,15 +916,15 @@
             videoFrame.src = videoUrl;
             modal.show();
         }
-        
+
         // Close video modal
         document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
             const videoFrame = document.getElementById('videoFrame');
             videoFrame.src = '';
         });
-        
+
         // Keyboard navigation for lightbox
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             const lightbox = document.getElementById('lightbox');
             if (lightbox.classList.contains('active')) {
                 if (e.key === 'Escape') {
@@ -887,18 +936,19 @@
                 }
             }
         });
-        
+
         // Click outside lightbox to close
-        document.getElementById('lightbox').addEventListener('click', function(e) {
+        document.getElementById('lightbox').addEventListener('click', function (e) {
             if (e.target === this) {
                 closeLightbox();
             }
         });
-        
+
         // Initialize gallery on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeGallery();
         });
     </script>
 </body>
+
 </html>

@@ -1,13 +1,46 @@
 // LUXURY EVENT VENUE BOOKING - MAIN JAVASCRIPT
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    initializeTheme();
     initializeAnimations();
     initializeInteractions();
     initializeFilters();
     initializeWishlist();
     initializeScrollReveal();
+    smoothScroll();
 });
+
+// Theme Toggle Functionality
+function toggleTheme() {
+    const html = document.documentElement;
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+
+    if (html.getAttribute('data-theme') === 'light') {
+        html.removeAttribute('data-theme');
+        if (themeIcon) themeIcon.className = 'fas fa-moon';
+        if (themeText) themeText.textContent = 'Dark';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        html.setAttribute('data-theme', 'light');
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
+        if (themeText) themeText.textContent = 'Light';
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
+        if (themeText) themeText.textContent = 'Light';
+    }
+}
 
 // Smooth scrolling for navigation links
 function smoothScroll() {
@@ -31,33 +64,33 @@ function initializeAnimations() {
     const heroTitle = document.querySelector('.hero-title');
     const heroSubtitle = document.querySelector('.hero-subtitle');
     const heroButtons = document.querySelector('.hero-buttons');
-    
+
     if (heroTitle) {
         setTimeout(() => {
             heroTitle.style.opacity = '1';
             heroTitle.style.transform = 'translateY(0)';
         }, 100);
     }
-    
+
     if (heroSubtitle) {
         setTimeout(() => {
             heroSubtitle.style.opacity = '1';
             heroSubtitle.style.transform = 'translateY(0)';
         }, 400);
     }
-    
+
     if (heroButtons) {
         setTimeout(() => {
             heroButtons.style.opacity = '1';
             heroButtons.style.transform = 'translateY(0)';
         }, 700);
     }
-    
+
     // Parallax effect for hero sections
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const parallaxElements = document.querySelectorAll('.hero');
-        
+
         parallaxElements.forEach(element => {
             const speed = 0.5;
             element.style.transform = `translateY(${scrolled * speed}px)`;
@@ -69,43 +102,43 @@ function initializeAnimations() {
 function initializeInteractions() {
     // Magnetic buttons effect
     const buttons = document.querySelectorAll('.btn-primary, .btn-outline-primary');
-    
+
     buttons.forEach(button => {
         button.addEventListener('mousemove', (e) => {
             const rect = button.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            
+
             button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
         });
-        
+
         button.addEventListener('mouseleave', () => {
             button.style.transform = 'translate(0, 0)';
         });
     });
-    
+
     // Card hover effects
     const cards = document.querySelectorAll('.card, .venue-card, .dashboard-card');
-    
+
     cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-10px) scale(1.02)';
         });
-        
-        card.addEventListener('mouseleave', function() {
+
+        card.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
-    
+
     // Gold shimmer effect on hover
     const goldElements = document.querySelectorAll('.text-gold, .btn-primary');
-    
+
     goldElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
+        element.addEventListener('mouseenter', function () {
             this.style.textShadow = '0 0 20px rgba(212, 175, 55, 0.5)';
         });
-        
-        element.addEventListener('mouseleave', function() {
+
+        element.addEventListener('mouseleave', function () {
             this.style.textShadow = 'none';
         });
     });
@@ -115,24 +148,24 @@ function initializeInteractions() {
 function initializeFilters() {
     const filterForm = document.querySelector('#venueFilters');
     const venueCards = document.querySelectorAll('.venue-card');
-    
+
     if (filterForm) {
-        filterForm.addEventListener('change', function() {
+        filterForm.addEventListener('change', function () {
             const filters = {
                 location: document.querySelector('#locationFilter')?.value || '',
                 eventType: document.querySelector('#eventTypeFilter')?.value || '',
                 capacity: document.querySelector('#capacityFilter')?.value || '',
                 priceRange: document.querySelector('#priceRangeFilter')?.value || ''
             };
-            
+
             filterVenues(venueCards, filters);
         });
     }
-    
+
     // Search functionality
     const searchInput = document.querySelector('#searchInput');
     if (searchInput) {
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', function () {
             const searchTerm = this.value.toLowerCase();
             filterVenues(venueCards, { search: searchTerm });
         });
@@ -143,17 +176,17 @@ function initializeFilters() {
 function filterVenues(venues, filters) {
     venues.forEach(venue => {
         let show = true;
-        
+
         // Location filter
         if (filters.location && !venue.dataset.location?.includes(filters.location)) {
             show = false;
         }
-        
+
         // Event type filter
         if (filters.eventType && !venue.dataset.eventTypes?.includes(filters.eventType)) {
             show = false;
         }
-        
+
         // Capacity filter
         if (filters.capacity) {
             const venueCapacity = parseInt(venue.dataset.capacity);
@@ -162,7 +195,7 @@ function filterVenues(venues, filters) {
                 show = false;
             }
         }
-        
+
         // Price range filter
         if (filters.priceRange) {
             const venuePrice = parseInt(venue.dataset.price);
@@ -171,7 +204,7 @@ function filterVenues(venues, filters) {
                 show = false;
             }
         }
-        
+
         // Search filter
         if (filters.search) {
             const venueText = venue.textContent.toLowerCase();
@@ -179,9 +212,9 @@ function filterVenues(venues, filters) {
                 show = false;
             }
         }
-        
+
         venue.style.display = show ? 'block' : 'none';
-        
+
         // Add animation
         if (show) {
             venue.style.animation = 'fadeInUp 0.5s ease-out';
@@ -192,15 +225,15 @@ function filterVenues(venues, filters) {
 // Initialize wishlist functionality
 function initializeWishlist() {
     const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-    
+
     wishlistButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const venueId = this.dataset.venueId;
             const isActive = this.classList.contains('active');
-            
+
             if (isActive) {
                 this.classList.remove('active');
                 this.innerHTML = '<i class="far fa-heart"></i>';
@@ -210,7 +243,7 @@ function initializeWishlist() {
                 this.innerHTML = '<i class="fas fa-heart"></i>';
                 addToWishlist(venueId);
             }
-            
+
             // Pulse animation
             this.style.animation = 'pulse 0.5s ease';
             setTimeout(() => {
@@ -241,19 +274,19 @@ function removeFromWishlist(venueId) {
 // Initialize scroll reveal animations
 function initializeScrollReveal() {
     const reveals = document.querySelectorAll('.reveal');
-    
+
     function checkReveal() {
         reveals.forEach(element => {
             const windowHeight = window.innerHeight;
             const elementTop = element.getBoundingClientRect().top;
             const elementVisible = 150;
-            
+
             if (elementTop < windowHeight - elementVisible) {
                 element.classList.add('active');
             }
         });
     }
-    
+
     window.addEventListener('scroll', checkReveal);
     checkReveal(); // Check on load
 }
@@ -275,9 +308,9 @@ function showNotification(message, type = 'info') {
         animation: slideInRight 0.3s ease-out;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
         setTimeout(() => {
@@ -292,28 +325,28 @@ function initializeGallery() {
     const lightbox = document.querySelector('#lightbox');
     const lightboxImg = document.querySelector('#lightbox-img');
     const lightboxClose = document.querySelector('#lightbox-close');
-    
+
     galleryImages.forEach(image => {
-        image.addEventListener('click', function() {
+        image.addEventListener('click', function () {
             const imgSrc = this.src || this.dataset.src;
             lightboxImg.src = imgSrc;
             lightbox.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         });
     });
-    
+
     if (lightboxClose) {
         lightboxClose.addEventListener('click', closeLightbox);
     }
-    
+
     if (lightbox) {
-        lightbox.addEventListener('click', function(e) {
+        lightbox.addEventListener('click', function (e) {
             if (e.target === lightbox) {
                 closeLightbox();
             }
         });
     }
-    
+
     function closeLightbox() {
         lightbox.style.display = 'none';
         document.body.style.overflow = 'auto';
@@ -324,17 +357,17 @@ function initializeGallery() {
 function validateForm(formId) {
     const form = document.querySelector(formId);
     if (!form) return false;
-    
+
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     let isValid = true;
-    
+
     inputs.forEach(input => {
         if (!input.value.trim()) {
             isValid = false;
             input.classList.add('is-invalid');
-            
+
             // Remove error on input
-            input.addEventListener('input', function() {
+            input.addEventListener('input', function () {
                 if (this.value.trim()) {
                     this.classList.remove('is-invalid');
                 }
@@ -343,7 +376,7 @@ function validateForm(formId) {
             input.classList.remove('is-invalid');
         }
     });
-    
+
     return isValid;
 }
 
@@ -366,7 +399,7 @@ function hideLoading(element) {
 // Dashboard animations
 function initializeDashboard() {
     const statCards = document.querySelectorAll('.stat-card');
-    
+
     statCards.forEach((card, index) => {
         const number = card.querySelector('.stat-number');
         if (number) {
@@ -381,7 +414,7 @@ function animateNumber(element, start, end, duration, delay = 0) {
     setTimeout(() => {
         const increment = (end - start) / (duration / 16);
         let current = start;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= end) {
@@ -396,15 +429,15 @@ function animateNumber(element, start, end, duration, delay = 0) {
 // Calendar functionality
 function initializeCalendar() {
     const calendarDays = document.querySelectorAll('.calendar-day');
-    
+
     calendarDays.forEach(day => {
-        day.addEventListener('click', function() {
+        day.addEventListener('click', function () {
             // Remove previous selection
             calendarDays.forEach(d => d.classList.remove('selected'));
-            
+
             // Add selection to clicked day
             this.classList.add('selected');
-            
+
             // Update hidden input
             const dateInput = document.querySelector('#selectedDate');
             if (dateInput) {
@@ -418,9 +451,9 @@ function initializeCalendar() {
 function initializeCompare() {
     const compareButtons = document.querySelectorAll('.compare-btn');
     const compareContainer = document.querySelector('#compareContainer');
-    
+
     compareButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const venueId = this.dataset.venueId;
             toggleCompare(venueId, this);
         });
@@ -429,7 +462,7 @@ function initializeCompare() {
 
 function toggleCompare(venueId, button) {
     let compareList = JSON.parse(localStorage.getItem('compareList') || '[]');
-    
+
     if (compareList.includes(venueId)) {
         compareList = compareList.filter(id => id !== venueId);
         button.classList.remove('active');
@@ -443,7 +476,7 @@ function toggleCompare(venueId, button) {
         button.classList.add('active');
         button.textContent = 'Remove';
     }
-    
+
     localStorage.setItem('compareList', JSON.stringify(compareList));
     updateCompareDisplay();
 }
@@ -451,7 +484,7 @@ function toggleCompare(venueId, button) {
 function updateCompareDisplay() {
     const compareList = JSON.parse(localStorage.getItem('compareList') || '[]');
     const compareCount = document.querySelector('#compareCount');
-    
+
     if (compareCount) {
         compareCount.textContent = compareList.length;
     }

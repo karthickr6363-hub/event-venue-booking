@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog & Tips - Event Planning Guides & Ideas</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <style>
         .blog-hero {
             background: linear-gradient(135deg, var(--midnight-black) 0%, var(--black-light) 100%);
@@ -29,7 +32,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .blog-hero::before {
             content: '';
             position: absolute;
@@ -40,12 +43,12 @@
             background: url('https://picsum.photos/seed/bloghero/1920/600.jpg') center/cover;
             opacity: 0.15;
         }
-        
+
         .blog-hero-content {
             position: relative;
             z-index: 2;
         }
-        
+
         .blog-card {
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
@@ -56,13 +59,13 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .blog-card:hover {
             transform: translateY(-10px);
             border-color: var(--royal-gold);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
         }
-        
+
         .blog-image {
             height: 200px;
             object-fit: cover;
@@ -70,11 +73,11 @@
             transition: transform 0.5s ease;
             display: block;
         }
-        
+
         .blog-card:hover .blog-image {
             transform: scale(1.05);
         }
-        
+
         .blog-content {
             padding: 1.5rem;
             flex-grow: 1;
@@ -82,7 +85,7 @@
             flex-direction: column;
             text-align: center;
         }
-        
+
         .blog-category {
             color: var(--royal-gold);
             font-size: 0.875rem;
@@ -92,7 +95,7 @@
             margin-bottom: 0.5rem;
             text-align: center;
         }
-        
+
         .blog-title {
             color: var(--pearl-white);
             font-family: var(--font-primary);
@@ -101,14 +104,14 @@
             line-height: 1.4;
             text-align: center;
         }
-        
+
         .blog-excerpt {
             color: var(--pearl-white);
             opacity: 0.8;
             margin-bottom: 1rem;
             line-height: 1.6;
         }
-        
+
         .blog-meta {
             display: flex;
             align-items: center;
@@ -120,26 +123,26 @@
             font-size: 0.875rem;
             text-align: center;
         }
-        
+
         .blog-author {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .author-avatar {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             margin-right: 0.5rem;
         }
-        
+
         .blog-content .btn {
             display: block;
             margin: 0 auto;
             text-align: center;
         }
-        
+
         .featured-post {
             background: var(--black-light);
             border: 2px solid var(--royal-gold);
@@ -147,21 +150,21 @@
             overflow: hidden;
             margin-bottom: 3rem;
         }
-        
+
         .featured-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
             align-items: center;
         }
-        
+
         .featured-image {
             height: 400px;
             object-fit: cover;
             width: 100%;
             display: block;
         }
-        
+
         .featured-text {
             padding: 3rem;
             display: flex;
@@ -169,7 +172,7 @@
             justify-content: center;
             text-align: center;
         }
-        
+
         .sidebar-widget {
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
@@ -177,7 +180,7 @@
             padding: 1.5rem;
             margin-bottom: 2rem;
         }
-        
+
         .sidebar-title {
             color: var(--royal-gold);
             font-family: var(--font-primary);
@@ -186,12 +189,12 @@
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--royal-gold);
         }
-        
+
         .category-list {
             list-style: none;
             padding: 0;
         }
-        
+
         .category-list li {
             padding: 0.5rem 0;
             border-bottom: 1px solid var(--black-lighter);
@@ -199,21 +202,21 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .category-list li:last-child {
             border-bottom: none;
         }
-        
+
         .category-list a {
             color: var(--pearl-white);
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .category-list a:hover {
             color: var(--royal-gold);
         }
-        
+
         .category-count {
             background: var(--black-lighter);
             color: var(--pearl-white);
@@ -221,11 +224,11 @@
             border-radius: var(--radius-sm);
             font-size: 0.75rem;
         }
-        
+
         .search-box {
             position: relative;
         }
-        
+
         .search-box input {
             background: var(--black-lighter);
             border: 1px solid var(--black-lighter);
@@ -234,7 +237,7 @@
             border-radius: var(--radius-md);
             width: 100%;
         }
-        
+
         .search-box button {
             position: absolute;
             right: 0.5rem;
@@ -245,13 +248,13 @@
             color: var(--royal-gold);
             cursor: pointer;
         }
-        
+
         .tag-cloud {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-        
+
         .tag {
             background: var(--black-lighter);
             color: var(--pearl-white);
@@ -261,17 +264,17 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .tag:hover {
             background: var(--royal-gold);
             color: var(--midnight-black);
         }
-        
+
         .newsletter-form {
             display: flex;
             gap: 0.5rem;
         }
-        
+
         .newsletter-form input {
             flex: 1;
             background: var(--black-lighter);
@@ -280,14 +283,15 @@
             padding: 0.75rem;
             border-radius: var(--radius-md);
         }
-        
+
         .pagination-blog {
             display: flex;
             justify-content: center;
             gap: 0.5rem;
             margin-top: 3rem;
+            margin-bottom: 3rem;
         }
-        
+
         .pagination-blog .page-link {
             background: var(--black-light);
             border: 1px solid var(--black-lighter);
@@ -297,29 +301,38 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .pagination-blog .page-link:hover,
         .pagination-blog .page-link.active {
             background: var(--royal-gold);
             color: var(--midnight-black);
             border-color: var(--royal-gold);
         }
-        
+
         @media (max-width: 768px) {
             .featured-content {
                 grid-template-columns: 1fr;
             }
-            
+
             .featured-image {
                 height: 250px;
             }
-            
+
             .featured-text {
                 padding: 2rem;
+            }
+
+            .pagination-blog {
+                margin-bottom: 4rem;
+            }
+
+            .sidebar-widget:first-child {
+                margin-top: 2rem;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -333,7 +346,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Home
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="homeDropdown">
@@ -354,7 +368,7 @@
                         <a class="nav-link" href="gallery.html">Gallery</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
+                        <a class="nav-link active" href="blog.html">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
@@ -396,15 +410,20 @@
                     <div class="featured-post">
                         <div class="featured-content">
                             <div>
-                                <img src="https://picsum.photos/seed/featuredblog/600/400.jpg" alt="Featured Post" class="featured-image">
+                                <img src="https://picsum.photos/seed/featuredblog/600/400.jpg" alt="Featured Post"
+                                    class="featured-image">
                             </div>
                             <div class="featured-text">
                                 <div class="blog-category">Featured</div>
-                                <h2 class="blog-title display-6">The Ultimate Guide to Luxury Wedding Planning in 2024</h2>
-                                <p class="blog-excerpt">Discover the latest trends, tips, and insider secrets for planning the perfect luxury wedding. From venue selection to vendor coordination, we've got you covered.</p>
+                                <h2 class="blog-title display-6">The Ultimate Guide to Luxury Wedding Planning in 2024
+                                </h2>
+                                <p class="blog-excerpt">Discover the latest trends, tips, and insider secrets for
+                                    planning the perfect luxury wedding. From venue selection to vendor coordination,
+                                    we've got you covered.</p>
                                 <div class="blog-meta">
                                     <div class="blog-author">
-                                        <img src="https://picsum.photos/seed/author1/30/30.jpg" alt="Sarah Mitchell" class="author-avatar">
+                                        <img src="https://picsum.photos/seed/author1/30/30.jpg" alt="Sarah Mitchell"
+                                            class="author-avatar">
                                         <span>Sarah Mitchell</span>
                                     </div>
                                     <span>March 15, 2024</span>
@@ -419,14 +438,17 @@
                         <!-- Blog Post 1 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <img src="https://picsum.photos/seed/blog1/400/200.jpg" alt="Budget Planning" class="blog-image">
+                                <img src="https://picsum.photos/seed/blog1/400/200.jpg" alt="Budget Planning"
+                                    class="blog-image">
                                 <div class="blog-content">
                                     <div class="blog-category">Budget Tips</div>
                                     <h3 class="blog-title">How to Create a Realistic Event Budget</h3>
-                                    <p class="blog-excerpt">Learn the essential steps for creating and managing an event budget that works without compromising on quality.</p>
+                                    <p class="blog-excerpt">Learn the essential steps for creating and managing an event
+                                        budget that works without compromising on quality.</p>
                                     <div class="blog-meta">
                                         <div class="blog-author">
-                                            <img src="https://picsum.photos/seed/author2/30/30.jpg" alt="John Davis" class="author-avatar">
+                                            <img src="https://picsum.photos/seed/author2/30/30.jpg" alt="John Davis"
+                                                class="author-avatar">
                                             <span>John Davis</span>
                                         </div>
                                         <span>March 12, 2024</span>
@@ -439,14 +461,17 @@
                         <!-- Blog Post 2 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <img src="https://picsum.photos/seed/blog2/400/200.jpg" alt="Decoration Ideas" class="blog-image">
+                                <img src="https://picsum.photos/seed/blog2/400/200.jpg" alt="Decoration Ideas"
+                                    class="blog-image">
                                 <div class="blog-content">
                                     <div class="blog-category">Decoration</div>
                                     <h3 class="blog-title">Stunning Decoration Ideas for Corporate Events</h3>
-                                    <p class="blog-excerpt">Transform your corporate event with these professional decoration ideas that impress clients and colleagues.</p>
+                                    <p class="blog-excerpt">Transform your corporate event with these professional
+                                        decoration ideas that impress clients and colleagues.</p>
                                     <div class="blog-meta">
                                         <div class="blog-author">
-                                            <img src="https://picsum.photos/seed/author3/30/30.jpg" alt="Emily Chen" class="author-avatar">
+                                            <img src="https://picsum.photos/seed/author3/30/30.jpg" alt="Emily Chen"
+                                                class="author-avatar">
                                             <span>Emily Chen</span>
                                         </div>
                                         <span>March 10, 2024</span>
@@ -459,14 +484,17 @@
                         <!-- Blog Post 3 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <img src="https://picsum.photos/seed/blog3/400/200.jpg" alt="Venue Selection" class="blog-image">
+                                <img src="https://picsum.photos/seed/blog3/400/200.jpg" alt="Venue Selection"
+                                    class="blog-image">
                                 <div class="blog-content">
                                     <div class="blog-category">Venues</div>
                                     <h3 class="blog-title">Choosing the Perfect Venue for Your Event</h3>
-                                    <p class="blog-excerpt">Expert advice on selecting the ideal venue that matches your event style, budget, and guest requirements.</p>
+                                    <p class="blog-excerpt">Expert advice on selecting the ideal venue that matches your
+                                        event style, budget, and guest requirements.</p>
                                     <div class="blog-meta">
                                         <div class="blog-author">
-                                            <img src="https://picsum.photos/seed/author4/30/30.jpg" alt="Michael Roberts" class="author-avatar">
+                                            <img src="https://picsum.photos/seed/author4/30/30.jpg"
+                                                alt="Michael Roberts" class="author-avatar">
                                             <span>Michael Roberts</span>
                                         </div>
                                         <span>March 8, 2024</span>
@@ -479,14 +507,17 @@
                         <!-- Blog Post 4 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <img src="https://picsum.photos/seed/blog4/400/200.jpg" alt="Catering Tips" class="blog-image">
+                                <img src="https://picsum.photos/seed/blog4/400/200.jpg" alt="Catering Tips"
+                                    class="blog-image">
                                 <div class="blog-content">
                                     <div class="blog-category">Catering</div>
                                     <h3 class="blog-title">Catering Trends That Will Wow Your Guests</h3>
-                                    <p class="blog-excerpt">Explore the latest catering trends and menu ideas that will leave your guests talking long after the event.</p>
+                                    <p class="blog-excerpt">Explore the latest catering trends and menu ideas that will
+                                        leave your guests talking long after the event.</p>
                                     <div class="blog-meta">
                                         <div class="blog-author">
-                                            <img src="https://picsum.photos/seed/author5/30/30.jpg" alt="Lisa Thompson" class="author-avatar">
+                                            <img src="https://picsum.photos/seed/author5/30/30.jpg" alt="Lisa Thompson"
+                                                class="author-avatar">
                                             <span>Lisa Thompson</span>
                                         </div>
                                         <span>March 5, 2024</span>
@@ -499,14 +530,17 @@
                         <!-- Blog Post 5 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <img src="https://picsum.photos/seed/blog5/400/200.jpg" alt="Technology Integration" class="blog-image">
+                                <img src="https://picsum.photos/seed/blog5/400/200.jpg" alt="Technology Integration"
+                                    class="blog-image">
                                 <div class="blog-content">
                                     <div class="blog-category">Technology</div>
                                     <h3 class="blog-title">Integrating Technology into Modern Events</h3>
-                                    <p class="blog-excerpt">How to use technology to enhance attendee experience and streamline event management processes.</p>
+                                    <p class="blog-excerpt">How to use technology to enhance attendee experience and
+                                        streamline event management processes.</p>
                                     <div class="blog-meta">
                                         <div class="blog-author">
-                                            <img src="https://picsum.photos/seed/author6/30/30.jpg" alt="David Kim" class="author-avatar">
+                                            <img src="https://picsum.photos/seed/author6/30/30.jpg" alt="David Kim"
+                                                class="author-avatar">
                                             <span>David Kim</span>
                                         </div>
                                         <span>March 3, 2024</span>
@@ -519,14 +553,17 @@
                         <!-- Blog Post 6 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <img src="https://picsum.photos/seed/blog6/400/200.jpg" alt="Sustainability" class="blog-image">
+                                <img src="https://picsum.photos/seed/blog6/400/200.jpg" alt="Sustainability"
+                                    class="blog-image">
                                 <div class="blog-content">
                                     <div class="blog-category">Sustainability</div>
                                     <h3 class="blog-title">Planning Eco-Friendly Events</h3>
-                                    <p class="blog-excerpt">Tips and strategies for hosting sustainable events that reduce environmental impact without sacrificing quality.</p>
+                                    <p class="blog-excerpt">Tips and strategies for hosting sustainable events that
+                                        reduce environmental impact without sacrificing quality.</p>
                                     <div class="blog-meta">
                                         <div class="blog-author">
-                                            <img src="https://picsum.photos/seed/author7/30/30.jpg" alt="Anna Green" class="author-avatar">
+                                            <img src="https://picsum.photos/seed/author7/30/30.jpg" alt="Anna Green"
+                                                class="author-avatar">
                                             <span>Anna Green</span>
                                         </div>
                                         <span>March 1, 2024</span>
@@ -607,21 +644,24 @@
                     <div class="sidebar-widget">
                         <h4 class="sidebar-title">Popular Posts</h4>
                         <div class="d-flex mb-3">
-                            <img src="https://picsum.photos/seed/popular1/80/80.jpg" alt="Popular Post" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="https://picsum.photos/seed/popular1/80/80.jpg" alt="Popular Post"
+                                class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-1">10 Wedding Planning Mistakes to Avoid</h6>
                                 <small class="text-muted">March 10, 2024</small>
                             </div>
                         </div>
                         <div class="d-flex mb-3">
-                            <img src="https://picsum.photos/seed/popular2/80/80.jpg" alt="Popular Post" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="https://picsum.photos/seed/popular2/80/80.jpg" alt="Popular Post"
+                                class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-1">Corporate Event Planning Checklist</h6>
                                 <small class="text-muted">March 8, 2024</small>
                             </div>
                         </div>
                         <div class="d-flex">
-                            <img src="https://picsum.photos/seed/popular3/80/80.jpg" alt="Popular Post" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="https://picsum.photos/seed/popular3/80/80.jpg" alt="Popular Post"
+                                class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-1">Venue Selection Guide</h6>
                                 <small class="text-muted">March 5, 2024</small>
@@ -649,7 +689,8 @@
                     <!-- Newsletter Widget -->
                     <div class="sidebar-widget">
                         <h4 class="sidebar-title">Subscribe to Newsletter</h4>
-                        <p class="text-muted mb-3">Get the latest event planning tips and trends delivered to your inbox.</p>
+                        <p class="text-muted mb-3">Get the latest event planning tips and trends delivered to your
+                            inbox.</p>
                         <form class="newsletter-form">
                             <input type="email" placeholder="Your email address">
                             <button type="submit" class="btn btn-primary">
@@ -665,27 +706,37 @@
     <!-- Footer -->
     <footer class="bg-black text-center py-4">
         <div class="container">
-            <!-- Quick Links -->
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <!-- Brand and Quick Links -->
+            <div class="row mb-4 text-center text-md-start">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-gold mb-3"><i class="fas fa-crown me-2"></i>Luxury Venues</h5>
+                    <p class="text-white-50 small">Discover exclusive spaces for your most memorable occasions. We bring
+                        luxury and elegance to every event.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
-                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a></li>
-                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event Packages</a></li>
+                        <li class="mb-2"><a href="venues.html" class="text-white text-decoration-none">Find Venues</a>
+                        </li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none">Event
+                                Packages</a></li>
                         <li class="mb-2"><a href="gallery.html" class="text-white text-decoration-none">Gallery</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h6 class="text-gold mb-3">Services</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact Us</a>
+                        </li>
                         <li class="mb-2"><a href="login.html" class="text-white text-decoration-none">Login</a></li>
-                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a></li>
-                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white text-decoration-none">Register</a>
+                        </li>
+                        <li class="mb-2"><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6 class="text-gold mb-3">Contact Info</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i>+1 (234) 567-890</li>
@@ -694,7 +745,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Copyright and Social -->
             <div class="border-top border-secondary pt-3">
                 <p class="mb-3">&copy; 2026 Luxury Venue Booking. All rights reserved.</p>
@@ -712,10 +763,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/main.js"></script>
-    
+
     <script>
         // Search functionality
-        document.querySelector('.search-box button').addEventListener('click', function(e) {
+        document.querySelector('.search-box button').addEventListener('click', function (e) {
             e.preventDefault();
             const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
             if (searchTerm) {
@@ -723,9 +774,9 @@
                 // Implement search logic here
             }
         });
-        
+
         // Newsletter subscription
-        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+        document.querySelector('.newsletter-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const email = this.querySelector('input').value;
             if (email) {
@@ -733,30 +784,30 @@
                 this.querySelector('input').value = '';
             }
         });
-        
+
         // Category filter
         document.querySelectorAll('.category-list a').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const category = this.textContent;
                 showNotification(`Filtering by category: ${category}`, 'info');
                 // Implement category filtering logic
             });
         });
-        
+
         // Tag filter
         document.querySelectorAll('.tag').forEach(tag => {
-            tag.addEventListener('click', function(e) {
+            tag.addEventListener('click', function (e) {
                 e.preventDefault();
                 const tagName = this.textContent;
                 showNotification(`Filtering by tag: ${tagName}`, 'info');
                 // Implement tag filtering logic
             });
         });
-        
+
         // Blog post interactions
         document.querySelectorAll('.blog-card a, .featured-post a').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 if (this.classList.contains('btn') || this.classList.contains('btn-sm')) {
                     e.preventDefault();
                     const title = this.closest('.blog-card, .featured-post').querySelector('.blog-title, .display-6').textContent;
@@ -768,19 +819,19 @@
                 }
             });
         });
-        
+
         // Popular posts click handlers
         document.querySelectorAll('.sidebar-widget .d-flex').forEach(post => {
             post.style.cursor = 'pointer';
-            post.addEventListener('click', function() {
+            post.addEventListener('click', function () {
                 const title = this.querySelector('h6').textContent;
                 showNotification(`Loading: ${title}`, 'info');
             });
         });
-        
+
         // Pagination
         document.querySelectorAll('.pagination-blog .page-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 if (!this.querySelector('.fa')) {
                     document.querySelectorAll('.pagination-blog .page-link').forEach(l => l.classList.remove('active'));
@@ -790,17 +841,18 @@
                 }
             });
         });
-        
+
         // Add hover effects to blog cards
         document.querySelectorAll('.blog-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
+            card.addEventListener('mouseenter', function () {
                 this.style.transform = 'translateY(-10px) scale(1.02)';
             });
-            
-            card.addEventListener('mouseleave', function() {
+
+            card.addEventListener('mouseleave', function () {
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
     </script>
 </body>
+
 </html>

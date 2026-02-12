@@ -6,37 +6,37 @@
     --midnight-black: #0B0F14;
     --pearl-white: #F6F7F9;
     --royal-gold: #D4AF37;
-    
+
     /* Extended Palette for UI */
     --black-light: #1A1F2E;
     --black-lighter: #2A2F3E;
     --white-dark: #E8EAED;
     --gold-light: #E6C547;
     --gold-dark: #B8941F;
-    
+
     /* Typography */
     --font-primary: 'Playfair Display', serif;
     --font-secondary: 'Inter', sans-serif;
-    
+
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 3rem;
     --spacing-xl: 4rem;
-    
+
     /* Border Radius */
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
     --radius-lg: 1rem;
     --radius-xl: 2rem;
-    
+
     /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-    --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
-    
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
     /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
@@ -48,17 +48,17 @@
     --midnight-black: #F6F7F9;
     --pearl-white: #0B0F14;
     --royal-gold: #D4AF37;
-    
+
     --black-light: #E8EAED;
     --black-lighter: #D1D5DB;
     --white-dark: #1A1F2E;
     --gold-light: #E6C547;
     --gold-dark: #B8941F;
-    
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-    --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Reset & Base Styles */
@@ -77,19 +77,41 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-primary);
     font-weight: 700;
     margin-bottom: var(--spacing-sm);
     color: var(--pearl-white);
 }
 
-h1 { font-size: 3.5rem; }
-h2 { font-size: 2.5rem; }
-h3 { font-size: 2rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
 
 p {
     margin-bottom: var(--spacing-sm);
@@ -139,19 +161,27 @@ a:hover {
     color: var(--royal-gold) !important;
 }
 
-/* Navigation Item Ordering */
-.navbar-nav .nav-item:not(:last-child) {
-    margin-right: auto;
+/* Navigation Item Ordering & CTA Button Alignment */
+.navbar-nav {
+    align-items: center;
 }
 
-.navbar-nav .nav-item:last-child {
-    margin-right: 0;
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center;
 }
 
-.navbar-nav .nav-item:last-child .nav-link,
-.navbar-nav .nav-item:last-child .theme-toggle {
-    margin-right: 0;
-    gap: 0.5rem;
+/* Add spacing between Login button and Dark Mode toggle */
+.navbar-nav .nav-item .btn-outline-primary {
+    margin-right: 0.75rem;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Ensure theme toggle aligns with Login button */
+.navbar-nav .nav-item .theme-toggle {
+    margin: 0;
 }
 
 .navbar-nav .nav-link::after {
@@ -204,6 +234,15 @@ a:hover {
 [data-theme="light"] .theme-toggle:hover {
     background: var(--royal-gold);
     color: var(--pearl-white);
+}
+
+/* Light Mode Navbar Toggler Fix */
+[data-theme="light"] .navbar-toggler {
+    border-color: var(--royal-gold);
+}
+
+[data-theme="light"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23D4AF37' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* Dropdown Menu Styles */
@@ -281,13 +320,52 @@ a:hover {
 }
 
 /* Footer Links */
+footer {
+    color: var(--pearl-white);
+}
+
+footer p,
+footer .small,
+footer .text-white-50 {
+    color: var(--pearl-white) !important;
+    opacity: 0.8 !important;
+}
+
+footer li {
+    color: var(--pearl-white);
+    opacity: 0.9;
+}
+
+footer a.text-white {
+    color: var(--pearl-white) !important;
+    opacity: 0.8;
+}
+
 footer a {
     transition: var(--transition-fast);
+    display: inline-block;
 }
 
 footer a:hover {
     color: var(--royal-gold) !important;
     transform: translateX(5px);
+    opacity: 1 !important;
+}
+
+/* Light Mode Footer Visibility */
+[data-theme="light"] footer {
+    color: var(--midnight-black);
+}
+
+[data-theme="light"] footer p,
+[data-theme="light"] footer .text-white-50,
+[data-theme="light"] footer li {
+    color: var(--midnight-black) !important;
+    opacity: 0.6 !important;
+}
+
+[data-theme="light"] footer a.text-white {
+    color: var(--midnight-black) !important;
 }
 
 /* Light Mode Footer */
@@ -414,10 +492,37 @@ footer a:hover {
     opacity: 0.5;
 }
 
+/* Ensure select options are visible */
+.form-control option {
+    background-color: var(--black-light);
+    color: var(--pearl-white);
+}
+
+/* Enhanced venue finder form controls */
+.venue-finder .form-control {
+    background-color: var(--black-light);
+    color: var(--pearl-white);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.venue-finder .form-control:focus {
+    background-color: var(--black-lighter);
+    border-color: var(--royal-gold);
+}
+
 .form-label {
     color: var(--pearl-white);
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+    display: block;
+}
+
+/* Enhanced visibility for venue finder labels */
+.venue-finder .form-label {
+    color: var(--pearl-white);
+    font-weight: 600;
+    opacity: 1;
 }
 
 /* Hero Section */
@@ -482,6 +587,7 @@ footer a:hover {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -493,6 +599,7 @@ footer a:hover {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -500,9 +607,12 @@ footer a:hover {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
@@ -512,6 +622,7 @@ footer a:hover {
     0% {
         background-position: -1000px 0;
     }
+
     100% {
         background-position: 1000px 0;
     }
@@ -597,7 +708,8 @@ footer a:hover {
     right: var(--spacing-sm);
     background-color: rgba(11, 15, 20, 0.8);
     border: none;
-    color: var(--pearl-white);
+    color: #F6F7F9;
+    /* Always light to contrast with dark button background */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -677,72 +789,85 @@ footer a:hover {
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .navbar-nav {
         background: var(--midnight-black);
         border-radius: var(--radius-lg);
         padding: 1rem;
         margin: 0.5rem 0;
     }
-    
+
+    /* Stack CTA buttons vertically on mobile */
+    .navbar-nav .nav-item .btn-outline-primary {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navbar-nav .nav-item .theme-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
     .venue-finder {
         padding: 1rem;
     }
-    
+
     .venue-finder .row {
         gap: 1rem;
     }
-    
+
     .venue-finder .form-control {
         font-size: 0.875rem;
     }
-    
+
     .venue-finder .btn {
         padding: var(--spacing-sm) var(--spacing-md);
         font-size: 0.875rem;
     }
-    
+
     .venue-card {
         margin-bottom: 1rem;
     }
-    
+
     .card-img-top {
         height: 200px;
     }
-    
+
     .card-body {
         padding: 1rem;
     }
-    
+
     .card-title {
         font-size: 1.1rem;
     }
-    
+
     .section-title {
         font-size: 1.75rem;
     }
-    
+
     .why-choose-us .row {
         gap: 1rem;
     }
-    
+
     .why-choose-us h4 {
         font-size: 1.1rem;
     }
-    
+
     .testimonial-card {
         padding: 1rem;
     }
-    
+
     .partner-logo {
         max-width: 100px;
         height: auto;
     }
-    
+
     .cta-banner h2 {
         font-size: 1.75rem;
     }
-    
+
     .cta-banner .btn {
         padding: var(--spacing-sm) var(--spacing-md);
         font-size: 1rem;
@@ -753,136 +878,136 @@ footer a:hover {
     .hero-content {
         padding: 2rem 1rem;
     }
-    
+
     .hero-title {
         font-size: 2rem;
         line-height: 1.2;
     }
-    
+
     .hero-subtitle {
         font-size: 1rem;
     }
-    
+
     .navbar-nav {
         padding: 0.75rem;
         margin: 0.25rem;
     }
-    
+
     .venue-finder {
         padding: 1rem;
     }
-    
+
     .venue-finder .row {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
+
     .venue-finder .col-md-3,
     .venue-finder .col-md-2 {
         width: 100%;
         margin-bottom: 0.75rem;
     }
-    
+
     .venue-finder .form-control {
         font-size: 0.875rem;
         padding: 0.75rem;
     }
-    
+
     .venue-finder .btn {
         width: 100%;
         padding: 0.75rem;
         font-size: 0.875rem;
     }
-    
+
     .venue-card {
         margin-bottom: 1rem;
     }
-    
+
     .card-img-top {
         height: 180px;
     }
-    
+
     .card-body {
         padding: 0.75rem;
     }
-    
+
     .card-title {
         font-size: 1rem;
         line-height: 1.3;
     }
-    
+
     .badge {
         font-size: 0.75rem;
     }
-    
+
     .section-title {
         font-size: 1.5rem;
     }
-    
+
     .why-choose-us .row {
         gap: 0.75rem;
     }
-    
+
     .why-choose-us h4 {
         font-size: 1rem;
     }
-    
+
     .why-choose-us p {
         font-size: 0.875rem;
     }
-    
+
     .testimonial-card {
         padding: 0.75rem;
     }
-    
+
     .testimonial-card img {
         width: 40px;
         height: 40px;
     }
-    
+
     .testimonial-card h6 {
         font-size: 0.875rem;
     }
-    
+
     .partner-logo {
         max-width: 80px;
         height: auto;
     }
-    
+
     .partner-logo img-fluid {
         max-width: 100%;
         height: auto;
     }
-    
+
     .cta-banner {
         padding: 2rem 1rem;
     }
-    
+
     .cta-banner h2 {
         font-size: 1.5rem;
     }
-    
+
     .cta-banner .lead {
         font-size: 1rem;
     }
-    
+
     .cta-banner .btn {
         width: 100%;
         padding: 0.75rem;
         font-size: 0.875rem;
     }
-    
+
     /* Hide/Show mobile menu */
     .mobile-menu-toggle {
         display: block;
     }
-    
+
     .sidebar {
         transform: translateX(-100%);
         width: 280px;
         padding: 1rem;
     }
-    
+
     .sidebar.active {
         transform: translateX(0);
     }
@@ -892,86 +1017,85 @@ footer a:hover {
     .hero-title {
         font-size: 1.75rem;
     }
-    
+
     .hero-subtitle {
         font-size: 0.875rem;
     }
-    
+
     .venue-finder {
         padding: 0.75rem;
     }
-    
+
     .venue-finder .form-label {
         font-size: 0.875rem;
     }
-    
+
     .venue-card {
         margin-bottom: 0.75rem;
     }
-    
+
     .card-img-top {
         height: 150px;
     }
-    
+
     .card-body {
         padding: 0.75rem;
     }
-    
+
     .card-title {
         font-size: 0.875rem;
     }
-    
+
     .badge {
         font-size: 0.625rem;
     }
-    
+
     .section-title {
         font-size: 1.25rem;
     }
-    
+
     .testimonial-card {
         padding: 0.5rem;
     }
-    
+
     .partner-logo {
         max-width: 60px;
     }
-    
+
     .cta-banner {
         padding: 1.5rem 0.75rem;
     }
-    
+
     .cta-banner h2 {
         font-size: 1.25rem;
     }
-    
+
     .cta-banner .lead {
         font-size: 0.875rem;
     }
-    
+
     .cta-banner .btn {
         font-size: 0.75rem;
     }
-}
-    
+
     .hero-subtitle {
         font-size: 1rem;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
     }
-    
+
     .hero-buttons .btn {
         margin-bottom: 0.5rem;
     }
-    
+
     .navbar-nav {
         text-align: center;
     }
-    
+
     .section {
         padding: var(--spacing-lg) 0;
     }
