@@ -92,7 +92,8 @@
 
         .venue-badge {
             position: absolute;
-            top: 1rem;
+            top: 3.5rem;
+            /* Moved down to avoid overlap with rating */
             left: 1rem;
             background: var(--royal-gold);
             color: var(--midnight-black);
@@ -100,6 +101,7 @@
             border-radius: var(--radius-md);
             font-weight: 600;
             font-size: 0.875rem;
+            z-index: 3;
         }
 
         .venue-rating {

@@ -412,6 +412,15 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+
+        .text-muted {
+            color: var(--pearl-white) !important;
+            opacity: 0.7;
+        }
+
+        .video-card-content {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -649,7 +658,7 @@
     <section class="section bg-black-light">
         <div class="container">
             <h2 class="section-title">Video Highlights</h2>
-            <div class="row g-4">
+            <div class="row g-4 text-center">
                 <div class="col-md-4">
                     <div class="video-thumbnail" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
                         <img src="https://picsum.photos/seed/video1/400/250.jpg" alt="Wedding Video">
