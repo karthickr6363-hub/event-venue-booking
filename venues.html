@@ -304,7 +304,7 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <i class="fas fa-crown me-2"></i>Luxury Venues
@@ -376,133 +376,142 @@
                 <!-- Filters Sidebar -->
                 <div class="col-lg-3 mb-4">
                     <div class="filter-sidebar">
-                        <h5 class="filter-title">
-                            <i class="fas fa-filter me-2"></i>Filters
-                        </h5>
-
-                        <!-- Location Filter -->
-                        <div class="filter-group">
-                            <label class="form-label">Location</label>
-                            <select class="form-control" id="locationFilter">
-                                <option value="">All Locations</option>
-                                <option value="new-york">New York</option>
-                                <option value="los-angeles">Los Angeles</option>
-                                <option value="chicago">Chicago</option>
-                                <option value="miami">Miami</option>
-                                <option value="las-vegas">Las Vegas</option>
-                                <option value="san-francisco">San Francisco</option>
-                            </select>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="filter-title mb-0">
+                                <i class="fas fa-filter me-2"></i>Filters
+                            </h5>
+                            <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
                         </div>
 
-                        <!-- Event Type Filter -->
-                        <div class="filter-group">
-                            <label class="form-label">Event Type</label>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="wedding"
-                                    id="weddingCheck">
-                                <label class="form-check-label" for="weddingCheck">
-                                    Wedding
-                                </label>
+                        <div class="collapse d-lg-block" id="filterCollapse">
+                            <!-- Location Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Location</label>
+                                <select class="form-control" id="locationFilter">
+                                    <option value="">All Locations</option>
+                                    <option value="new-york">New York</option>
+                                    <option value="los-angeles">Los Angeles</option>
+                                    <option value="chicago">Chicago</option>
+                                    <option value="miami">Miami</option>
+                                    <option value="las-vegas">Las Vegas</option>
+                                    <option value="san-francisco">San Francisco</option>
+                                </select>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="corporate"
-                                    id="corporateCheck">
-                                <label class="form-check-label" for="corporateCheck">
-                                    Corporate
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="party"
-                                    id="partyCheck">
-                                <label class="form-check-label" for="partyCheck">
-                                    Party
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="conference"
-                                    id="conferenceCheck">
-                                <label class="form-check-label" for="conferenceCheck">
-                                    Conference
-                                </label>
-                            </div>
-                        </div>
 
-                        <!-- Capacity Filter -->
-                        <div class="filter-group">
-                            <label class="form-label">Guest Capacity</label>
-                            <select class="form-control" id="capacityFilter">
-                                <option value="">Any Size</option>
-                                <option value="50">Up to 50 guests</option>
-                                <option value="100">Up to 100 guests</option>
-                                <option value="200">Up to 200 guests</option>
-                                <option value="300">Up to 300 guests</option>
-                                <option value="500">Up to 500 guests</option>
-                                <option value="1000">500+ guests</option>
-                            </select>
-                        </div>
-
-                        <!-- Price Range Filter -->
-                        <div class="filter-group">
-                            <label class="form-label">Price Range</label>
-                            <div class="price-range-slider">
-                                <input type="range" class="form-range" min="1000" max="50000" value="25000"
-                                    id="priceRange">
-                                <div class="d-flex justify-content-between">
-                                    <small>$1,000</small>
-                                    <small id="priceValue">$25,000</small>
-                                    <small>$50,000</small>
+                            <!-- Event Type Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Event Type</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="wedding"
+                                        id="weddingCheck">
+                                    <label class="form-check-label" for="weddingCheck">
+                                        Wedding
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="corporate"
+                                        id="corporateCheck">
+                                    <label class="form-check-label" for="corporateCheck">
+                                        Corporate
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="party"
+                                        id="partyCheck">
+                                    <label class="form-check-label" for="partyCheck">
+                                        Party
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="conference"
+                                        id="conferenceCheck">
+                                    <label class="form-check-label" for="conferenceCheck">
+                                        Conference
+                                    </label>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Amenities Filter -->
-                        <div class="filter-group">
-                            <label class="form-label">Amenities</label>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="parking"
-                                    id="parkingCheck">
-                                <label class="form-check-label" for="parkingCheck">
-                                    Parking
-                                </label>
+                            <!-- Capacity Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Guest Capacity</label>
+                                <select class="form-control" id="capacityFilter">
+                                    <option value="">Any Size</option>
+                                    <option value="50">Up to 50 guests</option>
+                                    <option value="100">Up to 100 guests</option>
+                                    <option value="200">Up to 200 guests</option>
+                                    <option value="300">Up to 300 guests</option>
+                                    <option value="500">Up to 500 guests</option>
+                                    <option value="1000">500+ guests</option>
+                                </select>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="catering"
-                                    id="cateringCheck">
-                                <label class="form-check-label" for="cateringCheck">
-                                    Catering
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="av" id="avCheck">
-                                <label class="form-check-label" for="avCheck">
-                                    AV Equipment
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input checkbox-custom" type="checkbox" value="outdoor"
-                                    id="outdoorCheck">
-                                <label class="form-check-label" for="outdoorCheck">
-                                    Outdoor Space
-                                </label>
-                            </div>
-                        </div>
 
-                        <!-- Rating Filter -->
-                        <div class="filter-group">
-                            <label class="form-label">Minimum Rating</label>
-                            <div class="d-flex gap-1">
-                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(4)">4+
-                                    ★</button>
-                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(3)">3+
-                                    ★</button>
-                                <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(2)">2+
-                                    ★</button>
+                            <!-- Price Range Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Price Range</label>
+                                <div class="price-range-slider">
+                                    <input type="range" class="form-range" min="1000" max="50000" value="25000"
+                                        id="priceRange">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-white small">$1,000</span>
+                                        <span class="text-gold fw-bold" id="priceValue">$25,000</span>
+                                        <span class="text-white small">$50,000</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <button class="btn btn-primary w-100" onclick="applyFilters()">
-                            <i class="fas fa-search me-2"></i>Apply Filters
-                        </button>
+                            <!-- Amenities Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Amenities</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="parking"
+                                        id="parkingCheck">
+                                    <label class="form-check-label" for="parkingCheck">
+                                        Parking
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="catering"
+                                        id="cateringCheck">
+                                    <label class="form-check-label" for="cateringCheck">
+                                        Catering
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="av"
+                                        id="avCheck">
+                                    <label class="form-check-label" for="avCheck">
+                                        AV Equipment
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input checkbox-custom" type="checkbox" value="outdoor"
+                                        id="outdoorCheck">
+                                    <label class="form-check-label" for="outdoorCheck">
+                                        Outdoor Space
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Rating Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Minimum Rating</label>
+                                <div class="d-flex gap-1">
+                                    <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(4)">4+
+                                        ★</button>
+                                    <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(3)">3+
+                                        ★</button>
+                                    <button class="btn btn-sm btn-outline-warning" onclick="setRatingFilter(2)">2+
+                                        ★</button>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary w-100 mt-3" onclick="applyFilters()">
+                                <i class="fas fa-search me-2"></i>Apply Filters
+                            </button>
+                        </div>
                     </div>
                 </div>
 
