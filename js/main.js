@@ -86,7 +86,8 @@ function initializeAnimations() {
         }, 700);
     }
 
-    // Parallax effect for hero sections
+    // Parallax effect for hero sections - Disabled as it causes scrolling issues by translating the entire section
+    /*
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const parallaxElements = document.querySelectorAll('.hero');
@@ -96,6 +97,7 @@ function initializeAnimations() {
             element.style.transform = `translateY(${scrolled * speed}px)`;
         });
     });
+    */
 }
 
 // Initialize interactive elements
